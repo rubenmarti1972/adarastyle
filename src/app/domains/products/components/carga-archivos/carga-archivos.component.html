@@ -1,0 +1,114 @@
+<form (ngSubmit)="addProduct()" #productForm="ngForm" class="space-y-4 p-4">
+  <!-- Título -->
+  <div>
+    <label for="title" class="block font-medium">Título</label>
+    <input type="text" id="title" name="title"
+      [ngModel]="product().title" (ngModelChange)="updateTitle($event)"
+      required class="w-full rounded border p-2" />
+  </div>
+
+  <!-- Descripción -->
+  <div>
+    <label for="description" class="block font-medium">Descripción</label>
+    <textarea id="description" name="description"
+      [ngModel]="product().description" (ngModelChange)="updateDescription($event)"
+      required class="w-full rounded border p-2"></textarea>
+  </div>
+
+  <!-- Precio -->
+  <div>
+    <label for="price" class="block font-medium">Precio</label>
+    <input type="number" id="price" name="price"
+      [ngModel]="product().price" (ngModelChange)="updatePrice($event)"
+      required class="w-full rounded border p-2" />
+  </div>
+
+<!-- Selección de Departamento -->
+<div>
+  <label for="department" class="block font-medium">Departamento</label>
+  <select
+    id="department"
+    name="department"
+    required
+    class="w-full rounded border p-2"
+    [(ngModel)]="selectedDepartmentId"
+    (change)="onDepartmentChange($event)"
+  >
+    <option [ngValue]="null">Seleccione un Departamento</option>
+    <option *ngFor="let dept of departments()" [ngValue]="dept.id">
+      {{ dept.name }}
+    </option>
+  </select>
+</div>
+
+<div>
+  <label for="category" class="block font-medium">Categoría</label>
+  <select
+    id="category"
+    name="category"
+    [(ngModel)]="selectedCategoryId"
+    required
+    class="w-full rounded border p-2"
+  >
+    <option [ngValue]="null">Seleccione una Categoría</option>
+    <option *ngFor="let cat of categories()" [ngValue]="cat.id">
+      {{ cat.name }}
+    </option>
+  </select>
+</div>
+
+<div class="space-y-2">
+  <label for="features" class="block font-medium">Características</label>
+  <div class="flex gap-2">
+    <input
+      type="text"
+      class="flex-1 rounded border p-2"
+      name="feature"
+      [ngModel]="featureInput()"
+      (ngModelChange)="featureInput.set($event)"
+      placeholder="Ej. ‘Resistente al agua’"
+    />
+    <button type="button"
+            (click)="addFeature()"
+            class="rounded bg-green-500 px-4 text-white">
+      Añadir
+    </button>
+  </div>
+  <ul class="list-disc ml-6">
+    @for (feat of product().features; track feat) {
+      <li class="flex justify-between items-center">
+        {{ feat }}
+        <button type="button"
+                (click)="removeFeature(feat)"
+                class="text-red-600 font-bold">
+          &times;
+        </button>
+      </li>
+    }
+  </ul>
+</div>
+
+
+  <!-- Imagen -->
+  <div>
+    <label for="image" class="block font-medium">Imagen</label>
+    <input type="file" id="image" (change)="onFileSelected($event)" accept="image/*"
+      class="w-full" />
+    <div *ngIf="imagePreview()" class="mt-2">
+      <p class="text-sm text-gray-500">Vista previa:</p>
+      <img [src]="imagePreview()" alt="Vista previa" class="h-40 w-auto rounded" />
+    </div>
+  </div>
+
+  <!-- Botón para enviar -->
+  <button type="submit" [disabled]="productForm.invalid" (click)="addProduct()"
+    class="rounded bg-blue-600 py-2 px-4 text-white hover:bg-blue-700">
+    Agregar Producto
+  </button>
+</form>
+
+
+
+
+
+
