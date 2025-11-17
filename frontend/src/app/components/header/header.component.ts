@@ -176,28 +176,23 @@ import { ApiService } from '../../services/api.service';
   `]
 })
 export class HeaderComponent implements OnInit {
-  config: StoreConfig | null = null;
+  // Usar signals directamente desde los servicios
+  config = this.storeConfigService.config;
+  cartItemCount = this.cartService.itemCount;
+
   departments: Department[] = [];
-  cartItemCount: number = 0;
 
   constructor(
     private storeConfigService: StoreConfigService,
     private departmentService: DepartmentService,
-    private cartService: CartService,
+    public cartService: CartService,
     private apiService: ApiService
   ) {}
 
   ngOnInit(): void {
-    this.storeConfigService.config$.subscribe(config => {
-      this.config = config;
-    });
-
+    // Solo cargar departments (aún usa Observable)
     this.departmentService.getDepartments().subscribe(departments => {
       this.departments = departments;
-    });
-
-    this.cartService.cart$.subscribe(() => {
-      this.cartItemCount = this.cartService.getItemCount();
     });
   }
 

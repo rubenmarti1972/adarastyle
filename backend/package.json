@@ -24,7 +24,7 @@
     "uuid": "adarastyle-ecommerce-backend"
   },
   "engines": {
-    "node": ">=18.0.0 <=22.x.x",
-    "npm": ">=6.0.0"
+    "node": ">=20.19.5 <=22.x.x",
+    "npm": ">=10.0.0"
   }
 }
