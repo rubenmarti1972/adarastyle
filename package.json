@@ -1,0 +1,35 @@
+{
+  "name": "adarastyle-ecommerce",
+  "version": "1.0.0",
+  "description": "Tienda de bolsos completamente parametrizable con Strapi 5 y Angular",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "setup": "npm install && npm run setup:backend && npm run setup:frontend",
+    "setup:backend": "cd backend && npm install",
+    "setup:frontend": "cd frontend && npm install",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run develop",
+    "dev:frontend": "cd frontend && npm start",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "seed": "cd backend && npm run seed"
+  },
+  "keywords": [
+    "ecommerce",
+    "strapi",
+    "angular",
+    "tienda",
+    "bolsos",
+    "parametrizable"
+  ],
+  "author": "AdaraStyle",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

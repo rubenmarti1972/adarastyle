@@ -1,0 +1,30 @@
+{
+  "name": "adarastyle-backend",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Backend Strapi 5 para tienda parametrizable",
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi",
+    "seed": "node ./database/seed.js"
+  },
+  "dependencies": {
+    "@strapi/strapi": "^5.7.0",
+    "@strapi/plugin-users-permissions": "^5.7.0",
+    "@strapi/plugin-i18n": "^5.7.0",
+    "better-sqlite3": "^11.0.0",
+    "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.4.1"
+  },
+  "strapi": {
+    "uuid": "adarastyle-ecommerce-backend"
+  },
+  "engines": {
+    "node": ">=18.0.0 <=22.x.x",
+    "npm": ">=6.0.0"
+  }
+}

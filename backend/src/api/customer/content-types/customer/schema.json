@@ -1,0 +1,68 @@
+{
+  "kind": "collectionType",
+  "collectionName": "customers",
+  "info": {
+    "singularName": "customer",
+    "pluralName": "customers",
+    "displayName": "Customer",
+    "description": "Clientes de la tienda"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "email": {
+      "type": "email",
+      "required": true,
+      "unique": true
+    },
+    "firstName": {
+      "type": "string",
+      "required": true
+    },
+    "lastName": {
+      "type": "string",
+      "required": true
+    },
+    "phone": {
+      "type": "string"
+    },
+    "documentType": {
+      "type": "enumeration",
+      "enum": ["CC", "CE", "NIT", "Passport"],
+      "default": "CC"
+    },
+    "documentNumber": {
+      "type": "string"
+    },
+    "address": {
+      "type": "json",
+      "default": {
+        "street": "",
+        "city": "",
+        "state": "",
+        "postalCode": "",
+        "country": "Colombia"
+      }
+    },
+    "shippingAddresses": {
+      "type": "json",
+      "default": []
+    },
+    "orders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order.order",
+      "mappedBy": "customer"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "notes": {
+      "type": "text"
+    }
+  }
+}
