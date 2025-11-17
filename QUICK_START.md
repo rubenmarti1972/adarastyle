@@ -5,11 +5,11 @@ Guía express para poner en marcha tu tienda en 5 minutos.
 ## ⚡ Instalación Rápida
 
 ```bash
-# 1. Instalar todo
-npm run setup
+# 1. Instalar backend
+cd backend
+npm install
 
 # 2. Configurar backend
-cd backend
 cp .env.example .env
 
 # Editar .env y cambiar:

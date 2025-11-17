@@ -3,12 +3,8 @@
   "version": "1.0.0",
   "description": "Tienda de bolsos completamente parametrizable con Strapi 5 y Angular",
   "private": true,
-  "workspaces": [
-    "backend",
-    "frontend"
-  ],
   "scripts": {
-    "setup": "npm install && npm run setup:backend && npm run setup:frontend",
+    "setup": "npm run setup:backend && npm run setup:frontend && npm install",
     "setup:backend": "cd backend && npm install",
     "setup:frontend": "cd frontend && npm install",
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",

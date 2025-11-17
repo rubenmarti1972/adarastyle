@@ -33,16 +33,17 @@ Una tienda de bolsos de lujo completamente configurable, escalable y lista para 
 
 ### Instalación en 7 Pasos
 
-1. **Instalar dependencias**
-```bash
-npm run setup
-```
-
-2. **Configurar variables de entorno del backend**
+1. **Instalar dependencias del backend**
 ```bash
 cd backend
+npm install
+```
+
+2. **Configurar variables de entorno**
+```bash
 cp .env.example .env
 # Editar .env y configurar APP_KEYS, JWT_SECRET, etc.
+# Ver QUICK_START.md para generar secrets automáticamente
 ```
 
 3. **Iniciar el backend**
@@ -59,9 +60,10 @@ npm run develop
 npm run seed
 ```
 
-6. **Iniciar el frontend** (en otra terminal)
+6. **Instalar e iniciar el frontend** (en otra terminal)
 ```bash
 cd ../frontend
+npm install
 npm start
 ```
 
@@ -148,10 +150,15 @@ adarastyle/
 ## 🔧 Comandos Útiles
 
 ```bash
-npm run dev              # Ejecuta backend + frontend
+# Desarrollo (requiere instalar concurrently: npm install)
+npm run dev              # Ejecuta backend + frontend simultáneamente
 npm run dev:backend      # Solo backend
 npm run dev:frontend     # Solo frontend
-npm run build            # Build producción
+
+# Producción
+npm run build            # Build producción (backend + frontend)
+
+# Datos
 npm run seed             # Cargar datos de prueba
 ```
 
