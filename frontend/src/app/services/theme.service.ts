@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Injectable, signal, computed } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Theme } from '../models/theme.model';
 import { ApiService } from './api.service';
 
@@ -7,8 +7,14 @@ import { ApiService } from './api.service';
   providedIn: 'root'
 })
 export class ThemeService {
-  private currentThemeSubject = new BehaviorSubject<Theme | null>(null);
-  public currentTheme$ = this.currentThemeSubject.asObservable();
+  // Signal para el tema actual
+  private currentThemeSignal = signal<Theme | null>(null);
+
+  // Computed signal para obtener el tema actual (read-only)
+  public currentTheme = computed(() => this.currentThemeSignal());
+
+  // Computed para verificar si hay un tema cargado
+  public hasTheme = computed(() => this.currentThemeSignal() !== null);
 
   constructor(private apiService: ApiService) {}
 
@@ -28,7 +34,7 @@ export class ThemeService {
   }
 
   applyTheme(theme: Theme): void {
-    this.currentThemeSubject.next(theme);
+    this.currentThemeSignal.set(theme);
 
     // Aplicar variables CSS
     const root = document.documentElement;

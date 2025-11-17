@@ -4,7 +4,7 @@ Esta guía cubre el despliegue de AdaraStyle en producción.
 
 ## 📋 Requisitos Previos
 
-- Servidor con Node.js 18+
+- Servidor con Node.js 20.19.5+
 - PostgreSQL 12+ (recomendado para producción)
 - Dominio configurado con DNS
 - Certificado SSL (recomendado: Let's Encrypt con Certbot)

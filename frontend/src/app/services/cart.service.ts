@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Injectable, signal, computed } from '@angular/core';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Cart, CartItem } from '../models/cart.model';
 import { ApiService } from './api.service';
@@ -8,8 +8,18 @@ import { ApiService } from './api.service';
   providedIn: 'root'
 })
 export class CartService {
-  private cartSubject = new BehaviorSubject<Cart | null>(null);
-  public cart$ = this.cartSubject.asObservable();
+  // Signal para el carrito actual
+  private cartSignal = signal<Cart | null>(null);
+
+  // Computed signals para datos derivados
+  public cart = computed(() => this.cartSignal());
+  public itemCount = computed(() => {
+    const cart = this.cartSignal();
+    if (!cart || !cart.items) return 0;
+    return cart.items.reduce((sum, item) => sum + item.quantity, 0);
+  });
+  public total = computed(() => this.cartSignal()?.total ?? 0);
+  public isEmpty = computed(() => this.itemCount() === 0);
 
   private sessionId: string;
 
@@ -33,7 +43,7 @@ export class CartService {
     this.apiService.get<Cart>('cart', { sessionId: this.sessionId })
       .subscribe({
         next: (cart) => {
-          this.cartSubject.next(cart);
+          this.cartSignal.set(cart);
         },
         error: (error) => {
           console.error('Error loading cart:', error);
@@ -47,7 +57,7 @@ export class CartService {
       productId,
       quantity
     }).pipe(
-      tap(cart => this.cartSubject.next(cart))
+      tap(cart => this.cartSignal.set(cart))
     );
   }
 
@@ -57,7 +67,7 @@ export class CartService {
       itemId,
       quantity
     }).pipe(
-      tap(cart => this.cartSubject.next(cart))
+      tap(cart => this.cartSignal.set(cart))
     );
   }
 
@@ -66,7 +76,7 @@ export class CartService {
       sessionId: this.sessionId,
       itemId
     }).pipe(
-      tap(cart => this.cartSubject.next(cart))
+      tap(cart => this.cartSignal.set(cart))
     );
   }
 
@@ -74,17 +84,11 @@ export class CartService {
     return this.apiService.post<Cart>('cart/clear', {
       sessionId: this.sessionId
     }).pipe(
-      tap(cart => this.cartSubject.next(cart))
+      tap(cart => this.cartSignal.set(cart))
     );
   }
 
-  getCart(): Cart | null {
-    return this.cartSubject.value;
-  }
-
-  getItemCount(): number {
-    const cart = this.cartSubject.value;
-    if (!cart || !cart.items) return 0;
-    return cart.items.reduce((sum, item) => sum + item.quantity, 0);
-  }
+  // Ya no necesitamos estos métodos, se usan los computed signals directamente
+  // getCart() -> usar cart()
+  // getItemCount() -> usar itemCount()
 }

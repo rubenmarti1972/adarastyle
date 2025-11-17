@@ -1,6 +1,6 @@
 # AdaraStyle - Tienda de Bolsos E-commerce
 
-> Solución completa de e-commerce parametrizable con Strapi 5 y Angular 17
+> Solución completa de e-commerce parametrizable con Strapi 5 y Angular 20
 
 Una tienda de bolsos de lujo completamente configurable, escalable y lista para producción. Incluye sistema de temas dinámicos, carrito de compras, pasarelas de pago (Wompi y Nequi), y generación de facturas.
 
@@ -28,7 +28,7 @@ Una tienda de bolsos de lujo completamente configurable, escalable y lista para 
 ## 🚀 Inicio Rápido
 
 ### Prerrequisitos
-- Node.js 18+ y npm 6+
+- Node.js 20.19.5+ y npm 10+
 - Git
 
 ### Instalación en 7 Pasos
@@ -121,7 +121,7 @@ Ver [Guía de Configuración](./docs/CONFIGURATION.md) para más detalles.
 ## 🛠️ Stack Tecnológico
 
 **Backend**: Strapi 5, Node.js 18+, SQLite/PostgreSQL
-**Frontend**: Angular 17, TypeScript, SCSS
+**Frontend**: Angular 20, TypeScript, SCSS
 **Pagos**: Wompi, Nequi
 
 ## 📁 Estructura del Proyecto
@@ -132,7 +132,7 @@ adarastyle/
 │   ├── config/       # Configuración
 │   ├── database/     # Seed data
 │   └── src/api/      # Modelos y API
-├── frontend/         # Angular 17
+├── frontend/         # Angular 20
 │   └── src/app/
 │       ├── components/
 │       ├── services/

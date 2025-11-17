@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Injectable, signal, computed } from '@angular/core';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { StoreConfig } from '../models/store-config.model';
 import { ApiService } from './api.service';
@@ -9,8 +9,13 @@ import { ThemeService } from './theme.service';
   providedIn: 'root'
 })
 export class StoreConfigService {
-  private configSubject = new BehaviorSubject<StoreConfig | null>(null);
-  public config$ = this.configSubject.asObservable();
+  // Signal para la configuración de la tienda
+  private configSignal = signal<StoreConfig | null>(null);
+
+  // Computed signals para acceso público
+  public config = computed(() => this.configSignal());
+  public storeName = computed(() => this.configSignal()?.storeName ?? '');
+  public logo = computed(() => this.configSignal()?.logo);
 
   constructor(
     private apiService: ApiService,
@@ -22,7 +27,7 @@ export class StoreConfigService {
       populate: ['logo', 'favicon', 'activeTheme']
     }).pipe(
       tap(config => {
-        this.configSubject.next(config);
+        this.configSignal.set(config);
 
         // Aplicar tema activo
         if (config.activeTheme) {
@@ -38,10 +43,6 @@ export class StoreConfigService {
         }
       })
     );
-  }
-
-  getConfig(): StoreConfig | null {
-    return this.configSubject.value;
   }
 
   private updateMetaTags(config: StoreConfig): void {
