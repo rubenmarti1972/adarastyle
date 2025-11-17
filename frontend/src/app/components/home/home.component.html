@@ -1,0 +1,82 @@
+<div class="home">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">{{ config?.storeName }}</h1>
+      <p class="hero-tagline">{{ config?.tagline }}</p>
+      <p class="hero-description">{{ config?.description }}</p>
+      <a routerLink="/products" class="btn btn-primary">Ver Colección</a>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <section class="section" *ngIf="departments.length > 0">
+    <div class="container">
+      <h2 class="section-title">Nuestras Categorías</h2>
+      <div class="categories-grid">
+        <a
+          *ngFor="let dept of departments"
+          [routerLink]="['/departments', dept.slug]"
+          class="category-card"
+        >
+          <div class="category-image" *ngIf="dept.image">
+            <img [src]="getImageUrl(dept.image)" [alt]="dept.name">
+          </div>
+          <h3 class="category-name">{{ dept.name }}</h3>
+          <p class="category-description">{{ dept.description }}</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="section section-alt" *ngIf="featuredProducts.length > 0">
+    <div class="container">
+      <h2 class="section-title">Productos Destacados</h2>
+      <div class="products-grid">
+        <div *ngFor="let product of featuredProducts" class="product-card">
+          <a [routerLink]="['/products', product.slug]" class="product-link">
+            <div class="product-image">
+              <img [src]="getProductImage(product)" [alt]="product.name">
+              <div class="product-badges">
+                <span *ngIf="product.isNewArrival" class="badge badge-new">Nuevo</span>
+                <span *ngIf="product.salePrice" class="badge badge-sale">Oferta</span>
+              </div>
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">{{ product.name }}</h3>
+              <p class="product-short-desc">{{ product.shortDescription }}</p>
+              <div class="product-pricing">
+                <span class="product-price">{{ formatPrice(product.salePrice || product.price) }}</span>
+                <span *ngIf="product.salePrice" class="product-price-old">{{ formatPrice(product.price) }}</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- New Arrivals -->
+  <section class="section" *ngIf="newArrivals.length > 0">
+    <div class="container">
+      <h2 class="section-title">Nuevos Ingresos</h2>
+      <div class="products-grid">
+        <div *ngFor="let product of newArrivals" class="product-card">
+          <a [routerLink]="['/products', product.slug]" class="product-link">
+            <div class="product-image">
+              <img [src]="getProductImage(product)" [alt]="product.name">
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">{{ product.name }}</h3>
+              <p class="product-short-desc">{{ product.shortDescription }}</p>
+              <div class="product-pricing">
+                <span class="product-price">{{ formatPrice(product.salePrice || product.price) }}</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

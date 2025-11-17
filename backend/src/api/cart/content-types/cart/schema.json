@@ -1,0 +1,58 @@
+{
+  "kind": "collectionType",
+  "collectionName": "carts",
+  "info": {
+    "singularName": "cart",
+    "pluralName": "carts",
+    "displayName": "Cart",
+    "description": "Carritos de compra"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "sessionId": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "customer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::customer.customer"
+    },
+    "items": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cart-item.cart-item",
+      "mappedBy": "cart"
+    },
+    "subtotal": {
+      "type": "decimal",
+      "default": 0
+    },
+    "tax": {
+      "type": "decimal",
+      "default": 0
+    },
+    "shipping": {
+      "type": "decimal",
+      "default": 0
+    },
+    "discount": {
+      "type": "decimal",
+      "default": 0
+    },
+    "total": {
+      "type": "decimal",
+      "default": 0
+    },
+    "couponCode": {
+      "type": "string"
+    },
+    "expiresAt": {
+      "type": "datetime"
+    }
+  }
+}

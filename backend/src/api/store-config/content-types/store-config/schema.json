@@ -1,0 +1,102 @@
+{
+  "kind": "singleType",
+  "collectionName": "store_config",
+  "info": {
+    "singularName": "store-config",
+    "pluralName": "store-configs",
+    "displayName": "Store Configuration",
+    "description": "Configuración general de la tienda"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "storeName": {
+      "type": "string",
+      "required": true,
+      "default": "AdaraStyle"
+    },
+    "storeSlug": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "default": "adarastyle"
+    },
+    "tagline": {
+      "type": "string",
+      "default": "Bolsos de lujo para mujeres excepcionales"
+    },
+    "description": {
+      "type": "text",
+      "default": "Descubre nuestra exclusiva colección de bolsos de diseñador"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "favicon": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "activeTheme": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::theme.theme"
+    },
+    "currency": {
+      "type": "string",
+      "default": "COP",
+      "enum": ["COP", "USD", "EUR"]
+    },
+    "currencySymbol": {
+      "type": "string",
+      "default": "$"
+    },
+    "contactEmail": {
+      "type": "email",
+      "required": true
+    },
+    "contactPhone": {
+      "type": "string"
+    },
+    "address": {
+      "type": "text"
+    },
+    "socialMedia": {
+      "type": "json",
+      "default": {
+        "facebook": "",
+        "instagram": "",
+        "twitter": "",
+        "whatsapp": ""
+      }
+    },
+    "paymentMethods": {
+      "type": "json",
+      "default": {
+        "wompi": {
+          "enabled": true,
+          "publicKey": ""
+        },
+        "nequi": {
+          "enabled": true,
+          "phone": ""
+        }
+      }
+    },
+    "metaTitle": {
+      "type": "string"
+    },
+    "metaDescription": {
+      "type": "text"
+    },
+    "metaKeywords": {
+      "type": "text"
+    }
+  }
+}
