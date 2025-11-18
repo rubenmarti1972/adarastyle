@@ -33,7 +33,7 @@ pnpm install
 ```
 
 Esto instalará automáticamente:
-- Backend (Strapi 5.3.0)
+- Backend (Strapi 5.30.1)
 - Frontend (Angular 20)
 - Todas las dependencias de desarrollo
 
@@ -153,7 +153,7 @@ adarastyle/
 ├── .npmrc                 # Configuración de pnpm
 ├── package.json           # Scripts del monorepo
 ├── backend/
-│   ├── package.json       # Strapi 5.3.0
+│   ├── package.json       # Strapi 5.30.1
 │   └── ...
 └── frontend/
     ├── package.json       # Angular 20
@@ -162,7 +162,7 @@ adarastyle/
 
 ## 📊 Versiones
 
-- **Strapi**: 5.3.0 (última estable de Strapi 5)
+- **Strapi**: 5.30.1 (última estable de Strapi 5)
 - **Angular**: 20.0.0 (con Signals)
 - **Node.js**: 20.19.5+
 - **pnpm**: 9.15.0
@@ -172,7 +172,7 @@ adarastyle/
 
 ### Error: "No matching version found for @strapi/strapi@^5.7.0"
 
-✅ **Solucionado**: Ahora usamos Strapi 5.3.0 (última versión estable)
+✅ **Solucionado**: Ahora usamos Strapi 5.30.1 (última versión estable)
 
 ### Error: peer dependencies warnings
 
