@@ -11,8 +11,9 @@
     "seed": "node ./database/seed.js"
   },
   "dependencies": {
-    "@strapi/strapi": "5.30.1",
     "@strapi/plugin-users-permissions": "5.30.1",
+    "@strapi/strapi": "5.30.1",
+    "axios": "^1.13.2",
     "better-sqlite3": "^11.0.0",
     "pg": "^8.13.0",
     "react": "^18.3.1",
