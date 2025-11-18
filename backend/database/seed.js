@@ -781,15 +781,25 @@ async function seed() {
 // Ejecutar seed si se llama directamente
 if (require.main === module) {
   // Configurar Strapi
-  const strapi = require('@strapi/strapi');
+  const Strapi = require('@strapi/strapi');
 
-  strapi().load().then(() => {
-    seed().then(() => {
+  // Strapi 5 factory pattern
+  Strapi.createStrapi({
+    dir: require('path').resolve(__dirname, '..'),
+  }).load().then(async (app) => {
+    global.strapi = app;
+    try {
+      await seed();
+      await app.destroy();
       process.exit(0);
-    }).catch((error) => {
-      console.error(error);
+    } catch (error) {
+      console.error('❌ Error during seed:', error);
+      await app.destroy();
       process.exit(1);
-    });
+    }
+  }).catch((error) => {
+    console.error('❌ Failed to load Strapi:', error);
+    process.exit(1);
   });
 }
 
