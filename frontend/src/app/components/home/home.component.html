@@ -1,82 +1,352 @@
 <div class="home">
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1 class="hero-title">{{ config()?.storeName }}</h1>
-      <p class="hero-tagline">{{ config()?.tagline }}</p>
-      <p class="hero-description">{{ config()?.description }}</p>
-      <a routerLink="/products" class="btn btn-primary">Ver Colección</a>
-    </div>
-  </section>
-
-  <!-- Categories -->
-  <section class="section" *ngIf="departments.length > 0">
-    <div class="container">
-      <h2 class="section-title">Nuestras Categorías</h2>
-      <div class="categories-grid">
-        <a
-          *ngFor="let dept of departments"
-          [routerLink]="['/departments', dept.slug]"
-          class="category-card"
+  <!-- Hero Carousel Section - Estilo Bershka/Liderlamp -->
+  @if (heroBanners().length > 0) {
+    <section class="hero-carousel">
+      @for (banner of heroBanners(); track banner.id; let i = $index) {
+        <div
+          class="hero-slide"
+          [class.active]="i === currentBannerIndex()"
+          [class.text-dark]="banner.textColor === 'dark'"
+          [class.text-light]="banner.textColor === 'light'"
+          [class.text-left]="banner.textPosition === 'left'"
+          [class.text-center]="banner.textPosition === 'center'"
+          [class.text-right]="banner.textPosition === 'right'"
         >
-          <div class="category-image" *ngIf="dept.image">
-            <img [src]="getImageUrl(dept.image)" [alt]="dept.name">
+          <div class="hero-image-wrapper">
+            <picture>
+              @if (banner.mobileImage) {
+                <source media="(max-width: 768px)" [srcset]="getImageUrl(banner.mobileImage)">
+              }
+              <img
+                [src]="getImageUrl(banner.image)"
+                [alt]="banner.title"
+                class="hero-image"
+              >
+            </picture>
+            <div class="hero-overlay" [style.opacity]="banner.overlayOpacity"></div>
           </div>
-          <h3 class="category-name">{{ dept.name }}</h3>
-          <p class="category-description">{{ dept.description }}</p>
-        </a>
-      </div>
-    </div>
-  </section>
 
-  <!-- Featured Products -->
-  <section class="section section-alt" *ngIf="featuredProducts.length > 0">
-    <div class="container">
-      <h2 class="section-title">Productos Destacados</h2>
-      <div class="products-grid">
-        <div *ngFor="let product of featuredProducts" class="product-card">
-          <a [routerLink]="['/products', product.slug]" class="product-link">
-            <div class="product-image">
-              <img [src]="getProductImage(product)" [alt]="product.name">
-              <div class="product-badges">
-                <span *ngIf="product.isNewArrival" class="badge badge-new">Nuevo</span>
-                <span *ngIf="product.salePrice" class="badge badge-sale">Oferta</span>
-              </div>
+          <div class="hero-content container">
+            <div class="hero-text">
+              @if (banner.subtitle) {
+                <p class="hero-subtitle animate-fade-up">{{ banner.subtitle }}</p>
+              }
+              <h1 class="hero-title animate-fade-up delay-1">{{ banner.title }}</h1>
+              @if (banner.description) {
+                <p class="hero-description animate-fade-up delay-2">{{ banner.description }}</p>
+              }
+              @if (banner.ctaLink) {
+                <a
+                  [routerLink]="banner.ctaLink"
+                  class="btn btn-hero animate-fade-up delay-3"
+                >
+                  {{ banner.ctaText || 'Descubrir' }}
+                </a>
+              }
             </div>
-            <div class="product-info">
-              <h3 class="product-name">{{ product.name }}</h3>
-              <p class="product-short-desc">{{ product.shortDescription }}</p>
-              <div class="product-pricing">
-                <span class="product-price">{{ formatPrice(product.salePrice || product.price) }}</span>
-                <span *ngIf="product.salePrice" class="product-price-old">{{ formatPrice(product.price) }}</span>
+          </div>
+        </div>
+      }
+
+      <!-- Carousel Controls -->
+      @if (heroBanners().length > 1) {
+        <button class="carousel-control prev" (click)="prevBanner()" aria-label="Previous">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <button class="carousel-control next" (click)="nextBanner()" aria-label="Next">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+
+        <!-- Dots -->
+        <div class="carousel-dots">
+          @for (banner of heroBanners(); track banner.id; let i = $index) {
+            <button
+              class="dot"
+              [class.active]="i === currentBannerIndex()"
+              (click)="goToBanner(i)"
+              [attr.aria-label]="'Go to slide ' + (i + 1)"
+            ></button>
+          }
+        </div>
+      }
+    </section>
+  }
+
+  <!-- Featured Collections Grid - Estilo Bershka/Likely -->
+  @if (featuredCollections().length > 0) {
+    <section class="section collections-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Colecciones Destacadas</h2>
+          <p class="section-subtitle">Descubre nuestras selecciones curadas</p>
+        </div>
+
+        <div class="collections-grid">
+          @for (collection of featuredCollections(); track collection.id) {
+            <a
+              [routerLink]="collection.ctaLink || '/collections/' + collection.slug"
+              class="collection-card"
+              [class.size-small]="collection.size === 'small'"
+              [class.size-medium]="collection.size === 'medium'"
+              [class.size-large]="collection.size === 'large'"
+              [class.size-full]="collection.size === 'full'"
+            >
+              <div class="collection-image-wrapper">
+                <img
+                  [src]="getImageUrl(collection.image)"
+                  [alt]="collection.title"
+                  class="collection-image primary"
+                >
+                @if (collection.hoverImage) {
+                  <img
+                    [src]="getImageUrl(collection.hoverImage)"
+                    [alt]="collection.title"
+                    class="collection-image hover"
+                  >
+                }
+                <div class="collection-overlay"></div>
               </div>
-            </div>
-          </a>
+              <div class="collection-content" [style.color]="collection.textColor">
+                <h3 class="collection-title">{{ collection.title }}</h3>
+                @if (collection.description) {
+                  <p class="collection-description">{{ collection.description }}</p>
+                }
+                <span class="collection-cta">{{ collection.ctaText }}</span>
+              </div>
+            </a>
+          }
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  }
+
+  <!-- Brand Story Section - Estilo Mr. Wonderful -->
+  @if (brandStories().length > 0) {
+    @for (story of brandStories(); track story.id) {
+      <section
+        class="brand-story-section"
+        [style.background-color]="story.backgroundColor"
+        [style.color]="story.textColor"
+      >
+        <div class="container">
+          <div
+            class="brand-story"
+            [class.layout-image-left]="story.layout === 'image-left'"
+            [class.layout-image-right]="story.layout === 'image-right'"
+            [class.layout-image-top]="story.layout === 'image-top'"
+            [class.layout-text-only]="story.layout === 'text-only'"
+          >
+            @if (story.image && story.layout !== 'text-only') {
+              <div class="story-image-wrapper">
+                <img [src]="getImageUrl(story.image)" [alt]="story.title" class="story-image">
+              </div>
+            }
+
+            <div class="story-content">
+              @if (story.emoji) {
+                <div class="story-emoji">{{ story.emoji }}</div>
+              }
+              @if (story.headline) {
+                <p class="story-headline" [style.color]="story.accentColor">{{ story.headline }}</p>
+              }
+              <h2 class="story-title">{{ story.title }}</h2>
+              <div class="story-text" [innerHTML]="story.content"></div>
+
+              @if (story.ctaLink) {
+                <a
+                  [routerLink]="story.ctaLink"
+                  class="btn btn-story"
+                  [style.background-color]="story.accentColor"
+                >
+                  {{ story.ctaText || 'Descubre más' }}
+                </a>
+              }
+            </div>
+          </div>
+        </div>
+      </section>
+    }
+  }
+
+  <!-- Featured Products - Estilo Liderlamp/Likely -->
+  @if (featuredProducts.length > 0) {
+    <section class="section products-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Productos Destacados</h2>
+          <p class="section-subtitle">Lo mejor de nuestra selección</p>
+        </div>
+
+        <div class="products-grid elegant">
+          @for (product of featuredProducts; track product.id) {
+            <article class="product-card elegant">
+              <a [routerLink]="['/products', product.slug]" class="product-link">
+                <div class="product-image-wrapper">
+                  <img
+                    [src]="getProductImage(product)"
+                    [alt]="product.name"
+                    class="product-image"
+                  >
+
+                  @if (product.images && product.images.length > 1) {
+                    <img
+                      [src]="getImageUrl(product.images[1])"
+                      [alt]="product.name"
+                      class="product-image-hover"
+                    >
+                  }
+
+                  <div class="product-badges">
+                    @if (product.isNewArrival) {
+                      <span class="badge badge-new">Nuevo</span>
+                    }
+                    @if (product.salePrice) {
+                      <span class="badge badge-sale">Oferta</span>
+                    }
+                  </div>
+
+                  <div class="product-quick-view">
+                    <span>Vista Rápida</span>
+                  </div>
+                </div>
+
+                <div class="product-info">
+                  <h3 class="product-name">{{ product.name }}</h3>
+                  @if (product.shortDescription) {
+                    <p class="product-short-desc">{{ product.shortDescription }}</p>
+                  }
+                  <div class="product-pricing">
+                    <span class="product-price">{{ formatPrice(product.salePrice || product.price) }}</span>
+                    @if (product.salePrice) {
+                      <span class="product-price-old">{{ formatPrice(product.price) }}</span>
+                      <span class="product-discount">
+                        -{{ Math.round((1 - product.salePrice / product.price) * 100) }}%
+                      </span>
+                    }
+                  </div>
+                </div>
+              </a>
+            </article>
+          }
+        </div>
+
+        <div class="section-cta">
+          <a routerLink="/products" class="btn btn-outline-primary">Ver Todos los Productos</a>
+        </div>
+      </div>
+    </section>
+  }
+
+  <!-- Lookbooks - Estilo Bershka Editorial -->
+  @if (lookbooks().length > 0) {
+    <section class="section lookbooks-section">
+      <div class="container-fluid">
+        <div class="section-header">
+          <h2 class="section-title">Últimas Tendencias</h2>
+          <p class="section-subtitle">Inspiración para tu estilo</p>
+        </div>
+
+        <div class="lookbooks-grid">
+          @for (lookbook of lookbooks(); track lookbook.id) {
+            <div class="lookbook-card">
+              <a [routerLink]="['/lookbooks', lookbook.slug]" class="lookbook-link">
+                <div class="lookbook-cover">
+                  <img
+                    [src]="getImageUrl(lookbook.coverImage)"
+                    [alt]="lookbook.title"
+                    class="lookbook-image"
+                  >
+                  <div class="lookbook-overlay">
+                    <div class="lookbook-content">
+                      @if (lookbook.season || lookbook.year) {
+                        <p class="lookbook-season">
+                          {{ lookbook.season }} {{ lookbook.year }}
+                        </p>
+                      }
+                      <h3 class="lookbook-title">{{ lookbook.title }}</h3>
+                      @if (lookbook.subtitle) {
+                        <p class="lookbook-subtitle">{{ lookbook.subtitle }}</p>
+                      }
+                      <span class="lookbook-cta">Explorar Lookbook →</span>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+  }
 
   <!-- New Arrivals -->
-  <section class="section" *ngIf="newArrivals.length > 0">
-    <div class="container">
-      <h2 class="section-title">Nuevos Ingresos</h2>
-      <div class="products-grid">
-        <div *ngFor="let product of newArrivals" class="product-card">
-          <a [routerLink]="['/products', product.slug]" class="product-link">
-            <div class="product-image">
-              <img [src]="getProductImage(product)" [alt]="product.name">
-            </div>
-            <div class="product-info">
-              <h3 class="product-name">{{ product.name }}</h3>
-              <p class="product-short-desc">{{ product.shortDescription }}</p>
-              <div class="product-pricing">
-                <span class="product-price">{{ formatPrice(product.salePrice || product.price) }}</span>
-              </div>
-            </div>
-          </a>
+  @if (newArrivals.length > 0) {
+    <section class="section new-arrivals-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Recién Llegados</h2>
+          <p class="section-subtitle">Las últimas novedades</p>
+        </div>
+
+        <div class="products-grid modern">
+          @for (product of newArrivals; track product.id) {
+            <article class="product-card modern">
+              <a [routerLink]="['/products', product.slug]" class="product-link">
+                <div class="product-image-wrapper">
+                  <img
+                    [src]="getProductImage(product)"
+                    [alt]="product.name"
+                    class="product-image"
+                  >
+                </div>
+                <div class="product-info">
+                  <h3 class="product-name">{{ product.name }}</h3>
+                  <div class="product-pricing">
+                    <span class="product-price">{{ formatPrice(product.salePrice || product.price) }}</span>
+                  </div>
+                </div>
+              </a>
+            </article>
+          }
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  }
+
+  <!-- Categories -->
+  @if (departments.length > 0) {
+    <section class="section categories-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Compra por Categoría</h2>
+        </div>
+
+        <div class="categories-grid modern">
+          @for (dept of departments; track dept.id) {
+            <a
+              [routerLink]="['/departments', dept.slug]"
+              class="category-card modern"
+            >
+              @if (dept.image) {
+                <div class="category-image-wrapper">
+                  <img [src]="getImageUrl(dept.image)" [alt]="dept.name" class="category-image">
+                  <div class="category-overlay"></div>
+                </div>
+              }
+              <div class="category-content">
+                <h3 class="category-name">{{ dept.name }}</h3>
+                @if (dept.description) {
+                  <p class="category-description">{{ dept.description }}</p>
+                }
+              </div>
+            </a>
+          }
+        </div>
+      </div>
+    </section>
+  }
 </div>

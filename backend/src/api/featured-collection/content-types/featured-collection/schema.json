@@ -1,0 +1,76 @@
+{
+  "kind": "collectionType",
+  "collectionName": "featured_collections",
+  "info": {
+    "singularName": "featured-collection",
+    "pluralName": "featured-collections",
+    "displayName": "Featured Collection",
+    "description": "Colecciones destacadas para la home"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "hoverImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "backgroundColor": {
+      "type": "string",
+      "default": "#FFFFFF"
+    },
+    "textColor": {
+      "type": "string",
+      "default": "#000000"
+    },
+    "ctaText": {
+      "type": "string",
+      "default": "Ver Colección"
+    },
+    "ctaLink": {
+      "type": "string"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product.product"
+    },
+    "department": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::department.department"
+    },
+    "size": {
+      "type": "enumeration",
+      "enum": ["small", "medium", "large", "full"],
+      "default": "medium"
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

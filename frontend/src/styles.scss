@@ -5,29 +5,32 @@
   box-sizing: border-box;
 }
 
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
+
 /* Default CSS Variables (will be overridden by theme) */
 :root {
-  /* Colors - Default Elegante Theme */
-  --color-primary: #8B1538;
-  --color-secondary: #D4AF37;
+  /* Colors - Modern Elegant Theme (Inspired by Likely + Liderlamp) */
+  --color-primary: #1a1a1a;
+  --color-secondary: #8B7355;
   --color-accent: #FFFFFF;
   --color-background: #FFFFFF;
-  --color-background-alt: #FFF8F0;
-  --color-text: #2D1B1E;
-  --color-text-light: #6B4C4F;
-  --color-border: #E8D5C4;
+  --color-background-alt: #F8F7F5;
+  --color-text: #1a1a1a;
+  --color-text-light: #666666;
+  --color-border: #E5E5E5;
   --color-success: #2D5F3F;
   --color-warning: #C07F00;
-  --color-error: #8B1538;
-  --color-info: #4A5D7C;
+  --color-error: #C53030;
+  --color-info: #2C5282;
 
-  /* Typography */
-  --font-primary: 'Playfair Display', serif;
-  --font-secondary: 'Lato', sans-serif;
-  --font-heading-weight: 700;
+  /* Typography - Modern & Elegant */
+  --font-primary: 'Cormorant Garamond', serif;
+  --font-secondary: 'Inter', sans-serif;
+  --font-heading-weight: 600;
   --font-body-weight: 400;
 
-  /* Spacing */
+  /* Spacing - Generous for modern look */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
@@ -35,22 +38,67 @@
   --spacing-xl: 2.5rem;
   --spacing-xxl: 4rem;
 
-  /* Border Radius */
-  --radius-sm: 2px;
-  --radius-md: 4px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
+  /* Border Radius - Subtle curves */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
   --radius-full: 9999px;
 
-  /* Shadows */
-  --shadow-sm: 0 2px 4px rgba(139, 21, 56, 0.08);
-  --shadow-md: 0 4px 12px rgba(139, 21, 56, 0.12);
-  --shadow-lg: 0 8px 24px rgba(139, 21, 56, 0.16);
-  --shadow-xl: 0 16px 48px rgba(139, 21, 56, 0.2);
+  /* Shadows - Soft and natural */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.08), 0 4px 6px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
 
-  /* Animations */
-  --animation-duration: 0.4s;
+  /* Animations - Smooth and sophisticated */
+  --animation-duration: 0.3s;
   --animation-easing: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-slow: 0.6s;
+}
+
+/* Alternative Color Schemes */
+/* Vibrant (Inspired by Mr. Wonderful + Bershka) */
+[data-theme="vibrant"] {
+  --color-primary: #FF6B9D;
+  --color-secondary: #FFC75F;
+  --color-accent: #FFFFFF;
+  --color-background: #FFFFFF;
+  --color-background-alt: #FFF5F7;
+  --color-text: #2D1B1E;
+  --color-text-light: #6B4C4F;
+  --color-border: #FFE4EC;
+  --font-primary: 'Playfair Display', serif;
+  --font-secondary: 'Inter', sans-serif;
+}
+
+/* Minimalist (Inspired by Likely) */
+[data-theme="minimalist"] {
+  --color-primary: #000000;
+  --color-secondary: #CCCCCC;
+  --color-accent: #FFFFFF;
+  --color-background: #FFFFFF;
+  --color-background-alt: #FAFAFA;
+  --color-text: #000000;
+  --color-text-light: #999999;
+  --color-border: #E0E0E0;
+  --font-primary: 'Inter', sans-serif;
+  --font-secondary: 'Inter', sans-serif;
+  --font-heading-weight: 500;
+}
+
+/* Warm Luxury (Inspired by Liderlamp) */
+[data-theme="warm-luxury"] {
+  --color-primary: #C9A56A;
+  --color-secondary: #8B7355;
+  --color-accent: #FFFFFF;
+  --color-background: #FFFBF5;
+  --color-background-alt: #F5EFE6;
+  --color-text: #3E2723;
+  --color-text-light: #8D6E63;
+  --color-border: #D7CCC8;
+  --font-primary: 'Cormorant Garamond', serif;
+  --font-secondary: 'Inter', sans-serif;
 }
 
 /* Global Styles */

@@ -1,12 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { DepartmentService } from '../../services/department.service';
 import { StoreConfigService } from '../../services/store-config.service';
+import { HeroBannerService } from '../../services/hero-banner.service';
+import { LookbookService } from '../../services/lookbook.service';
+import { FeaturedCollectionService } from '../../services/featured-collection.service';
+import { BrandStoryService } from '../../services/brand-story.service';
 import { ApiService } from '../../services/api.service';
 import { Product } from '../../models/product.model';
 import { Department } from '../../models/department.model';
+import { HeroBanner } from '../../models/hero-banner.model';
+import { Lookbook } from '../../models/lookbook.model';
+import { FeaturedCollection } from '../../models/featured-collection.model';
+import { BrandStory } from '../../models/brand-story.model';
 
 @Component({
   selector: 'app-home',
@@ -17,24 +25,65 @@ import { Department } from '../../models/department.model';
 })
 export class HomeComponent implements OnInit {
   config = this.storeConfigService.config;
+
+  // Hero Banners
+  heroBanners = signal<HeroBanner[]>([]);
+  currentBannerIndex = signal(0);
+
+  // Collections & Lookbooks
+  featuredCollections = signal<FeaturedCollection[]>([]);
+  lookbooks = signal<Lookbook[]>([]);
+
+  // Products
   featuredProducts: Product[] = [];
   newArrivals: Product[] = [];
   bestsellers: Product[] = [];
   departments: Department[] = [];
 
+  // Brand Stories
+  brandStories = signal<BrandStory[]>([]);
+
   constructor(
     private productService: ProductService,
     private departmentService: DepartmentService,
     private storeConfigService: StoreConfigService,
+    private heroBannerService: HeroBannerService,
+    private lookbookService: LookbookService,
+    private featuredCollectionService: FeaturedCollectionService,
+    private brandStoryService: BrandStoryService,
     private apiService: ApiService
   ) {}
 
   ngOnInit(): void {
-    this.productService.getFeaturedProducts(4).subscribe(products => {
+    // Load hero banners
+    this.heroBannerService.getActiveBanners().subscribe(banners => {
+      this.heroBanners.set(banners);
+      if (banners.length > 0) {
+        this.startBannerRotation();
+      }
+    });
+
+    // Load featured collections
+    this.featuredCollectionService.getActiveCollections(6).subscribe(collections => {
+      this.featuredCollections.set(collections);
+    });
+
+    // Load lookbooks
+    this.lookbookService.getActiveLookbooks(2).subscribe(lookbooks => {
+      this.lookbooks.set(lookbooks);
+    });
+
+    // Load brand stories
+    this.brandStoryService.getHomeStories(2).subscribe(stories => {
+      this.brandStories.set(stories);
+    });
+
+    // Load products
+    this.productService.getFeaturedProducts(8).subscribe(products => {
       this.featuredProducts = products;
     });
 
-    this.productService.getNewArrivals(4).subscribe(products => {
+    this.productService.getNewArrivals(8).subscribe(products => {
       this.newArrivals = products;
     });
 
@@ -42,9 +91,39 @@ export class HomeComponent implements OnInit {
       this.bestsellers = products;
     });
 
+    // Load departments
     this.departmentService.getDepartments().subscribe(departments => {
       this.departments = departments;
     });
+  }
+
+  startBannerRotation(): void {
+    setInterval(() => {
+      const banners = this.heroBanners();
+      if (banners.length > 1) {
+        this.currentBannerIndex.set((this.currentBannerIndex() + 1) % banners.length);
+      }
+    }, 5000);
+  }
+
+  nextBanner(): void {
+    const banners = this.heroBanners();
+    if (banners.length > 1) {
+      this.currentBannerIndex.set((this.currentBannerIndex() + 1) % banners.length);
+    }
+  }
+
+  prevBanner(): void {
+    const banners = this.heroBanners();
+    if (banners.length > 1) {
+      this.currentBannerIndex.set(
+        (this.currentBannerIndex() - 1 + banners.length) % banners.length
+      );
+    }
+  }
+
+  goToBanner(index: number): void {
+    this.currentBannerIndex.set(index);
   }
 
   getImageUrl(image: any): string {

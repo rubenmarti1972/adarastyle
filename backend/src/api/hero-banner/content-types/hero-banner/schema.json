@@ -1,0 +1,73 @@
+{
+  "kind": "collectionType",
+  "collectionName": "hero_banners",
+  "info": {
+    "singularName": "hero-banner",
+    "pluralName": "hero-banners",
+    "displayName": "Hero Banner",
+    "description": "Hero banners dinámicos para la página principal"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "ctaText": {
+      "type": "string",
+      "default": "Descubrir"
+    },
+    "ctaLink": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "mobileImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "overlayOpacity": {
+      "type": "decimal",
+      "default": 0.3,
+      "min": 0,
+      "max": 1
+    },
+    "textPosition": {
+      "type": "enumeration",
+      "enum": ["left", "center", "right"],
+      "default": "center"
+    },
+    "textColor": {
+      "type": "enumeration",
+      "enum": ["light", "dark"],
+      "default": "light"
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    },
+    "animationType": {
+      "type": "enumeration",
+      "enum": ["fade", "slide", "zoom", "none"],
+      "default": "fade"
+    }
+  }
+}
