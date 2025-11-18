@@ -163,12 +163,20 @@ adarastyle/
 ## 📊 Versiones
 
 - **Strapi**: 5.30.1 (última estable de Strapi 5)
+  - ℹ️ **i18n es CORE en Strapi 5** - No requiere plugin separado
+  - Plugin users-permissions: 5.30.1
 - **Angular**: 20.0.0 (con Signals)
 - **Node.js**: 20.19.5+
 - **pnpm**: 9.15.0
-- **TypeScript**: 5.7.2
+- **TypeScript**: 5.8.0 (requerido por Angular 20)
 
 ## 🆘 Troubleshooting
+
+### Error: "No matching version found for @strapi/plugin-i18n@5.30.1"
+
+✅ **Solucionado**: En Strapi 5, i18n es una funcionalidad CORE integrada. No necesitas instalar `@strapi/plugin-i18n` como plugin separado - viene incluido en `@strapi/strapi`.
+
+**¿Por qué?** El plugin `@strapi/plugin-i18n` solo existe para Strapi v4. En Strapi v5, la internacionalización está integrada de forma nativa.
 
 ### Error: "No matching version found for @strapi/strapi@^5.7.0"
 
