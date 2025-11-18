@@ -4,16 +4,16 @@
   "description": "Tienda de bolsos completamente parametrizable con Strapi 5 y Angular",
   "private": true,
   "scripts": {
-    "setup": "npm run setup:backend && npm run setup:frontend && npm install",
-    "setup:backend": "cd backend && npm install",
-    "setup:frontend": "cd frontend && npm install",
-    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
-    "dev:backend": "cd backend && npm run develop",
-    "dev:frontend": "cd frontend && npm start",
-    "build": "npm run build:backend && npm run build:frontend",
-    "build:backend": "cd backend && npm run build",
-    "build:frontend": "cd frontend && npm run build",
-    "seed": "cd backend && npm run seed"
+    "setup": "pnpm install",
+    "setup:backend": "pnpm --filter adarastyle-backend install",
+    "setup:frontend": "pnpm --filter adarastyle-frontend install",
+    "dev": "concurrently \"pnpm run dev:backend\" \"pnpm run dev:frontend\"",
+    "dev:backend": "pnpm --filter adarastyle-backend run develop",
+    "dev:frontend": "pnpm --filter adarastyle-frontend run start",
+    "build": "pnpm run build:backend && pnpm run build:frontend",
+    "build:backend": "pnpm --filter adarastyle-backend run build",
+    "build:frontend": "pnpm --filter adarastyle-frontend run build",
+    "seed": "pnpm --filter adarastyle-backend run seed"
   },
   "keywords": [
     "ecommerce",
@@ -26,6 +26,11 @@
   "author": "AdaraStyle",
   "license": "MIT",
   "devDependencies": {
-    "concurrently": "^8.2.2"
-  }
+    "concurrently": "^9.1.0"
+  },
+  "engines": {
+    "node": ">=20.19.5",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.15.0"
 }
