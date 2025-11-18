@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 import { ApiService } from '../../services/api.service';
-import { Cart } from '../../models/cart.model';
 
 @Component({
   selector: 'app-cart',
@@ -13,8 +12,8 @@ import { Cart } from '../../models/cart.model';
     <div class="cart-page">
       <div class="container">
         <h1>Carrito de Compras</h1>
-        <div *ngIf="cart && cart.items?.length > 0; else emptyCart">
-          <div *ngFor="let item of cart.items" class="cart-item">
+        <div *ngIf="cart() && cart()!.items?.length > 0; else emptyCart">
+          <div *ngFor="let item of cart()!.items" class="cart-item">
             <img [src]="getProductImage(item.product)" [alt]="item.product.name">
             <div class="item-info">
               <h3>{{ item.product.name }}</h3>
@@ -29,10 +28,10 @@ import { Cart } from '../../models/cart.model';
             <button (click)="removeItem(item.id)" class="btn-remove">Eliminar</button>
           </div>
           <div class="cart-summary">
-            <p>Subtotal: {{ formatPrice(cart.subtotal) }}</p>
-            <p>Impuesto (19%): {{ formatPrice(cart.tax) }}</p>
-            <p>Envío: {{ formatPrice(cart.shipping) }}</p>
-            <h3>Total: {{ formatPrice(cart.total) }}</h3>
+            <p>Subtotal: {{ formatPrice(cart()!.subtotal) }}</p>
+            <p>Impuesto (19%): {{ formatPrice(cart()!.tax) }}</p>
+            <p>Envío: {{ formatPrice(cart()!.shipping) }}</p>
+            <h3>Total: {{ formatPrice(cart()!.total) }}</h3>
             <a routerLink="/checkout" class="btn-checkout">Proceder al Pago</a>
           </div>
         </div>
@@ -54,19 +53,13 @@ import { Cart } from '../../models/cart.model';
     .btn-remove { background: var(--color-error); color: white; padding: var(--spacing-xs) var(--spacing-sm); border: none; border-radius: var(--radius-sm); cursor: pointer; }
   `]
 })
-export class CartComponent implements OnInit {
-  cart: Cart | null = null;
+export class CartComponent {
+  cart = this.cartService.cart;
 
   constructor(
     private cartService: CartService,
     private apiService: ApiService
   ) {}
-
-  ngOnInit(): void {
-    this.cartService.cart$.subscribe(cart => {
-      this.cart = cart;
-    });
-  }
 
   updateQuantity(itemId: number, quantity: number): void {
     this.cartService.updateItem(itemId, quantity).subscribe();

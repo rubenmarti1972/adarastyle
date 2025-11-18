@@ -7,7 +7,6 @@ import { StoreConfigService } from '../../services/store-config.service';
 import { ApiService } from '../../services/api.service';
 import { Product } from '../../models/product.model';
 import { Department } from '../../models/department.model';
-import { StoreConfig } from '../../models/store-config.model';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +16,7 @@ import { StoreConfig } from '../../models/store-config.model';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  config: StoreConfig | null = null;
+  config = this.storeConfigService.config;
   featuredProducts: Product[] = [];
   newArrivals: Product[] = [];
   bestsellers: Product[] = [];
@@ -31,10 +30,6 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.storeConfigService.config$.subscribe(config => {
-      this.config = config;
-    });
-
     this.productService.getFeaturedProducts(4).subscribe(products => {
       this.featuredProducts = products;
     });
