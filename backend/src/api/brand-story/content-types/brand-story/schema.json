@@ -1,0 +1,70 @@
+{
+  "kind": "collectionType",
+  "collectionName": "brand_stories",
+  "info": {
+    "singularName": "brand-story",
+    "pluralName": "brand-stories",
+    "displayName": "Brand Story",
+    "description": "Secciones de storytelling emocional estilo Mr. Wonderful"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "headline": {
+      "type": "string"
+    },
+    "content": {
+      "type": "richtext",
+      "required": true
+    },
+    "emoji": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "backgroundColor": {
+      "type": "string",
+      "default": "#FFF8F0"
+    },
+    "textColor": {
+      "type": "string",
+      "default": "#2D1B1E"
+    },
+    "accentColor": {
+      "type": "string",
+      "default": "#FF6B9D"
+    },
+    "layout": {
+      "type": "enumeration",
+      "enum": ["image-left", "image-right", "image-top", "image-background", "text-only"],
+      "default": "image-right"
+    },
+    "ctaText": {
+      "type": "string"
+    },
+    "ctaLink": {
+      "type": "string"
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true
+    },
+    "showOnHome": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

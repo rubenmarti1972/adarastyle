@@ -1,4 +1,10 @@
 const { faker } = require('@faker-js/faker');
+const {
+  heroBanners,
+  featuredCollections,
+  lookbooks,
+  brandStories,
+} = require('./seed-cms-content');
 
 // Definir los 6 temas
 const themes = [
@@ -757,13 +763,65 @@ async function seed() {
       console.log(`✓ Created product: ${productData.name}`);
     }
 
+    // 5. Crear Hero Banners
+    console.log('\n🎯 Creating hero banners...');
+    for (const bannerData of heroBanners) {
+      await strapi.db.query('api::hero-banner.hero-banner').create({
+        data: {
+          ...bannerData,
+          publishedAt: new Date(),
+        },
+      });
+      console.log(`✓ Created hero banner: ${bannerData.title}`);
+    }
+
+    // 6. Crear Featured Collections
+    console.log('\n🎨 Creating featured collections...');
+    for (const collectionData of featuredCollections) {
+      await strapi.db.query('api::featured-collection.featured-collection').create({
+        data: {
+          ...collectionData,
+          publishedAt: new Date(),
+        },
+      });
+      console.log(`✓ Created collection: ${collectionData.title}`);
+    }
+
+    // 7. Crear Lookbooks
+    console.log('\n📸 Creating lookbooks...');
+    for (const lookbookData of lookbooks) {
+      await strapi.db.query('api::lookbook.lookbook').create({
+        data: {
+          ...lookbookData,
+          publishedAt: new Date(),
+        },
+      });
+      console.log(`✓ Created lookbook: ${lookbookData.title}`);
+    }
+
+    // 8. Crear Brand Stories
+    console.log('\n💫 Creating brand stories...');
+    for (const storyData of brandStories) {
+      await strapi.db.query('api::brand-story.brand-story').create({
+        data: {
+          ...storyData,
+          publishedAt: new Date(),
+        },
+      });
+      console.log(`✓ Created brand story: ${storyData.title}`);
+    }
+
     console.log('\n✅ Seed completed successfully!');
     console.log('\n📊 Summary:');
     console.log(`   - ${themes.length} themes created`);
     console.log(`   - ${departments.length} departments created`);
     console.log(`   - ${products.length} products created`);
+    console.log(`   - ${heroBanners.length} hero banners created`);
+    console.log(`   - ${featuredCollections.length} featured collections created`);
+    console.log(`   - ${lookbooks.length} lookbooks created`);
+    console.log(`   - ${brandStories.length} brand stories created`);
     console.log(`   - 1 store configuration created`);
-    console.log('\n🎉 Your store is ready!');
+    console.log('\n🎉 Your store is ready with impactful CMS content!');
     console.log('\n🔐 Admin credentials:');
     console.log('   Email: admin@adarastyle.com');
     console.log('   Password: (set during first Strapi setup)');
@@ -771,6 +829,7 @@ async function seed() {
     console.log('   - Admin Panel: http://localhost:1337/admin');
     console.log('   - API: http://localhost:1337/api');
     console.log('\n💡 Active theme: Elegante (Vinotinto, Dorado, Blanco)');
+    console.log('✨ New CMS features: Hero Banners, Featured Collections, Lookbooks, Brand Stories');
 
   } catch (error) {
     console.error('❌ Error during seed:', error);
