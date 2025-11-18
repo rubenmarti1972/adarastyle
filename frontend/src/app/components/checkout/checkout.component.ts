@@ -36,12 +36,12 @@ import { OrderService } from '../../services/order.service';
             <label><input type="radio" name="paymentMethod" value="nequi" [(ngModel)]="paymentMethod"> Nequi</label>
           </div>
 
-          <div class="order-summary" *ngIf="cart">
+          <div class="order-summary" *ngIf="cart()">
             <h3>Resumen del Pedido</h3>
-            <p>Subtotal: {{ formatPrice(cart.subtotal) }}</p>
-            <p>Impuesto: {{ formatPrice(cart.tax) }}</p>
-            <p>Envío: {{ formatPrice(cart.shipping) }}</p>
-            <h3>Total: {{ formatPrice(cart.total) }}</h3>
+            <p>Subtotal: {{ formatPrice(cart()!.subtotal) }}</p>
+            <p>Impuesto: {{ formatPrice(cart()!.tax) }}</p>
+            <p>Envío: {{ formatPrice(cart()!.shipping) }}</p>
+            <h3>Total: {{ formatPrice(cart()!.total) }}</h3>
           </div>
 
           <button type="submit" [disabled]="!checkoutForm.valid || processing" class="btn-submit">

@@ -50,7 +50,7 @@ import { StoreConfigService } from '../../services/store-config.service';
         </div>
 
         <div class="footer-bottom">
-          <p class="copyright">© {{ currentYear }} {{ config?.storeName }}. Todos los derechos reservados.</p>
+          <p class="copyright">© {{ currentYear }} {{ config()?.storeName }}. Todos los derechos reservados.</p>
           <p class="powered-by">Powered by Strapi & Angular</p>
         </div>
       </div>

@@ -12,7 +12,7 @@ import { ApiService } from '../../services/api.service';
     <div class="cart-page">
       <div class="container">
         <h1>Carrito de Compras</h1>
-        <div *ngIf="cart() && cart()!.items?.length > 0; else emptyCart">
+        <div *ngIf="cart()?.items && cart()!.items.length > 0; else emptyCart">
           <div *ngFor="let item of cart()!.items" class="cart-item">
             <img [src]="getProductImage(item.product)" [alt]="item.product.name">
             <div class="item-info">
