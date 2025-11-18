@@ -1,3 +1,5 @@
+> **IMPORTANTE**: Este proyecto usa pnpm. Ver [INSTALL_PNPM.md](./INSTALL_PNPM.md) para instalación completa.
+
 # AdaraStyle - Tienda de Bolsos E-commerce
 
 > Solución completa de e-commerce parametrizable con Strapi 5 y Angular 20
