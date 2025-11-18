@@ -18,8 +18,8 @@ import { ApiService } from '../../services/api.service';
         <div class="header-top">
           <div class="logo">
             <a routerLink="/" class="logo-link">
-              <img *ngIf="config?.logo" [src]="getImageUrl(config.logo)" [alt]="config.storeName" class="logo-img">
-              <span class="logo-text">{{ config?.storeName }}</span>
+              <img *ngIf="config()?.logo" [src]="getImageUrl(config()!.logo)" [alt]="config()!.storeName" class="logo-img">
+              <span class="logo-text">{{ config()?.storeName }}</span>
             </a>
           </div>
 
@@ -34,7 +34,7 @@ import { ApiService } from '../../services/api.service';
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L19 6H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-              <span *ngIf="cartItemCount > 0" class="cart-badge">{{ cartItemCount }}</span>
+              <span *ngIf="cartItemCount() > 0" class="cart-badge">{{ cartItemCount() }}</span>
             </a>
           </div>
         </div>

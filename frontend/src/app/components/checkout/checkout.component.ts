@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 import { OrderService } from '../../services/order.service';
-import { Cart } from '../../models/cart.model';
 
 @Component({
   selector: 'app-checkout',
@@ -63,8 +62,8 @@ import { Cart } from '../../models/cart.model';
     .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
   `]
 })
-export class CheckoutComponent implements OnInit {
-  cart: Cart | null = null;
+export class CheckoutComponent {
+  cart = this.cartService.cart;
   processing = false;
   paymentMethod = 'wompi';
 
@@ -89,11 +88,10 @@ export class CheckoutComponent implements OnInit {
     private cartService: CartService,
     private orderService: OrderService,
     private router: Router
-  ) {}
-
-  ngOnInit(): void {
-    this.cartService.cart$.subscribe(cart => {
-      this.cart = cart;
+  ) {
+    // Navigate to cart if empty
+    effect(() => {
+      const cart = this.cart();
       if (!cart || !cart.items?.length) {
         this.router.navigate(['/cart']);
       }
@@ -104,7 +102,7 @@ export class CheckoutComponent implements OnInit {
     this.processing = true;
 
     const orderData = {
-      sessionId: this.cart?.sessionId,
+      sessionId: this.cart()?.sessionId,
       customerData: this.customerData,
       shippingAddress: this.shippingAddress,
       billingAddress: this.shippingAddress,

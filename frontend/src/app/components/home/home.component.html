@@ -2,9 +2,9 @@
   <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
-      <h1 class="hero-title">{{ config?.storeName }}</h1>
-      <p class="hero-tagline">{{ config?.tagline }}</p>
-      <p class="hero-description">{{ config?.description }}</p>
+      <h1 class="hero-title">{{ config()?.storeName }}</h1>
+      <p class="hero-tagline">{{ config()?.tagline }}</p>
+      <p class="hero-description">{{ config()?.description }}</p>
       <a routerLink="/products" class="btn btn-primary">Ver Colección</a>
     </div>
   </section>
