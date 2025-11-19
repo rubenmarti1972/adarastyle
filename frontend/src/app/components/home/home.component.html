@@ -230,6 +230,27 @@
                   </div>
                 </div>
               </a>
+
+              <!-- Botón Agregar al Carrito -->
+              <div class="product-actions">
+                <button
+                  class="btn-add-to-cart"
+                  [class.adding]="isAddingToCart(product.id)"
+                  [class.added]="wasAddedToCart(product.id)"
+                  [disabled]="isAddingToCart(product.id)"
+                  (click)="addToCart(product, $event)"
+                  type="button"
+                >
+                  @if (isAddingToCart(product.id)) {
+                    <span class="btn-text">Agregando...</span>
+                  } @else if (wasAddedToCart(product.id)) {
+                    <span class="btn-text">✓ Agregado</span>
+                  } @else {
+                    <span class="btn-icon">🛒</span>
+                    <span class="btn-text">Agregar al Carrito</span>
+                  }
+                </button>
+              </div>
             </article>
           }
         </div>

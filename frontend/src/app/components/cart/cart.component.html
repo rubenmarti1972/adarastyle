@@ -1,0 +1,105 @@
+<div class="cart-container">
+  <div class="cart-header">
+    <h1 class="cart-title">🛒 Mi Carrito</h1>
+    @if (!isEmpty()) {
+      <button class="btn-clear-cart" (click)="clearCart()" type="button">
+        Vaciar Carrito
+      </button>
+    }
+  </div>
+
+  @if (isEmpty()) {
+    <!-- Carrito vacío -->
+    <div class="cart-empty">
+      <div class="empty-icon">🛍️</div>
+      <h2 class="empty-title">Tu carrito está vacío</h2>
+      <p class="empty-message">¡Agrega productos para comenzar a comprar!</p>
+      <a routerLink="/" class="btn-continue-shopping">
+        Ir a la Tienda
+      </a>
+    </div>
+  } @else {
+    <!-- Carrito con productos -->
+    <div class="cart-content">
+      <!-- Lista de productos -->
+      <div class="cart-items">
+        @for (item of cart()?.items; track item.id) {
+          <div class="cart-item" [class.removing]="removingItem === item.id">
+            <div class="item-image">
+              <img [src]="getProductImage(item)" [alt]="item.product.name">
+            </div>
+
+            <div class="item-details">
+              <h3 class="item-name">{{ item.product.name }}</h3>
+              <p class="item-price">{{ formatPrice(item.price) }}</p>
+            </div>
+
+            <div class="item-quantity">
+              <button 
+                class="qty-btn" 
+                (click)="updateQuantity(item, item.quantity - 1)"
+                [disabled]="item.quantity <= 1 || updatingItem === item.id"
+                type="button"
+              >
+                −
+              </button>
+              <span class="qty-number">{{ item.quantity }}</span>
+              <button 
+                class="qty-btn" 
+                (click)="updateQuantity(item, item.quantity + 1)"
+                [disabled]="updatingItem === item.id"
+                type="button"
+              >
+                +
+              </button>
+            </div>
+
+            <div class="item-subtotal">
+              <p class="subtotal-label">Subtotal</p>
+              <p class="subtotal-price">{{ formatPrice(getItemSubtotal(item)) }}</p>
+            </div>
+
+            <button 
+              class="btn-remove" 
+              (click)="removeItem(item)"
+              [disabled]="removingItem === item.id"
+              type="button"
+            >
+              🗑️
+            </button>
+          </div>
+        }
+      </div>
+
+      <!-- Resumen del carrito -->
+      <div class="cart-summary">
+        <h2 class="summary-title">Resumen de Compra</h2>
+        
+        <div class="summary-row">
+          <span>Productos ({{ itemCount() }})</span>
+          <span class="summary-value">{{ formatPrice(total()) }}</span>
+        </div>
+
+        <div class="summary-row">
+          <span>Envío</span>
+          <span class="summary-value summary-free">GRATIS</span>
+        </div>
+
+        <div class="summary-divider"></div>
+
+        <div class="summary-row summary-total">
+          <span>TOTAL</span>
+          <span class="summary-total-price">{{ formatPrice(total()) }}</span>
+        </div>
+
+        <button class="btn-checkout" (click)="checkout()" type="button">
+          💳 Proceder al Pago
+        </button>
+
+        <a routerLink="/" class="btn-continue">
+          ← Continuar Comprando
+        </a>
+      </div>
+    </div>
+  }
+</div>
