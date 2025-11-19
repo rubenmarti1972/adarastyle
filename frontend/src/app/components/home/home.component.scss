@@ -617,13 +617,10 @@
 
   /* Efecto especial para tema Luxury */
   [data-theme="luxury"] & {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
     box-shadow: var(--shadow-md), var(--shadow-inset);
     border: 1px solid rgba(212, 175, 55, 0.2);
 
     &:hover {
-      background: rgba(255, 255, 255, 0.08);
       transform: translateY(-12px);
       box-shadow: var(--shadow-xl), var(--glow-gold);
       border-color: var(--color-secondary);
