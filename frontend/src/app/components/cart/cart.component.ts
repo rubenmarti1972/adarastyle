@@ -50,7 +50,7 @@ export class CartComponent implements OnInit {
   }
 
   removeItem(item: CartItem): void {
-    if (!confirm(\`¿Eliminar "\${item.product.name}" del carrito?\`)) {
+    if (!confirm(`¿Eliminar "${item.product.name}" del carrito?`)) {
       return;
     }
 
@@ -111,13 +111,13 @@ export class CartComponent implements OnInit {
 
     // Aquí implementarías la lógica de checkout real
     // Por ahora mostramos un resumen
-    alert(\`
+    alert(`
       RESUMEN DE COMPRA
 
-      Total de productos: \${this.itemCount()}
-      Total a pagar: \${this.formatPrice(this.total())}
+      Total de productos: ${this.itemCount()}
+      Total a pagar: ${this.formatPrice(this.total())}
 
       ¡Gracias por tu compra!
-    \`);
+    `);
   }
 }
