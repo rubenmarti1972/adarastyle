@@ -59,10 +59,16 @@ import { ApiService } from '../../services/api.service';
       top: 0;
       left: 0;
       right: 0;
-      background: var(--color-background);
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--color-border);
       z-index: 1000;
-      box-shadow: var(--shadow-sm);
+      box-shadow: var(--shadow-md);
+    }
+
+    [data-theme="luxury"] .header {
+      background: linear-gradient(180deg, rgba(139, 21, 56, 0.95) 0%, rgba(139, 21, 56, 0.98) 100%);
+      border-bottom: 2px solid var(--color-secondary);
     }
 
     .header-container {
@@ -93,9 +99,14 @@ import { ApiService } from '../../services/api.service';
 
     .logo-text {
       font-family: var(--font-primary);
-      font-size: 1.5rem;
+      font-size: 2rem;
       font-weight: var(--font-heading-weight);
       color: var(--color-primary);
+    }
+
+    [data-theme="luxury"] .logo-text {
+      color: var(--color-secondary);
+      text-shadow: 0 2px 8px rgba(212, 175, 55, 0.5);
     }
 
     .header-actions {
@@ -168,7 +179,8 @@ import { ApiService } from '../../services/api.service';
       text-decoration: none;
       color: var(--color-text);
       font-family: var(--font-secondary);
-      font-weight: 500;
+      font-weight: 600;
+      font-size: 1.125rem;
       padding: var(--spacing-sm) var(--spacing-md);
       border-radius: var(--radius-md);
       transition: all var(--animation-duration) var(--animation-easing);
@@ -179,6 +191,17 @@ import { ApiService } from '../../services/api.service';
     .nav-link.active {
       color: var(--color-primary);
       background: var(--color-background-alt);
+    }
+
+    [data-theme="luxury"] .nav-link {
+      color: var(--color-accent);
+      font-weight: 700;
+    }
+
+    [data-theme="luxury"] .nav-link:hover,
+    [data-theme="luxury"] .nav-link.active {
+      color: var(--color-secondary);
+      background: rgba(212, 175, 55, 0.2);
     }
 
     @media (max-width: 768px) {

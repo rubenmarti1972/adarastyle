@@ -56,6 +56,12 @@
       "target": "api::department.department",
       "inversedBy": "products"
     },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "products"
+    },
     "inStock": {
       "type": "boolean",
       "default": true
