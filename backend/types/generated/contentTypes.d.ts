@@ -430,6 +430,59 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiBrandStoryBrandStory extends Struct.CollectionTypeSchema {
+  collectionName: 'brand_stories';
+  info: {
+    description: 'Secciones de storytelling emocional estilo Mr. Wonderful';
+    displayName: 'Brand Story';
+    pluralName: 'brand-stories';
+    singularName: 'brand-story';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    accentColor: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#FF6B9D'>;
+    backgroundColor: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#FFF8F0'>;
+    content: Schema.Attribute.RichText & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    ctaLink: Schema.Attribute.String;
+    ctaText: Schema.Attribute.String;
+    emoji: Schema.Attribute.String;
+    headline: Schema.Attribute.String;
+    image: Schema.Attribute.Media<'images'>;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    layout: Schema.Attribute.Enumeration<
+      [
+        'image-left',
+        'image-right',
+        'image-top',
+        'image-background',
+        'text-only',
+      ]
+    > &
+      Schema.Attribute.DefaultTo<'image-right'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::brand-story.brand-story'
+    > &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    publishedAt: Schema.Attribute.DateTime;
+    showOnHome: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    textColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#2D1B1E'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCartItemCartItem extends Struct.CollectionTypeSchema {
   collectionName: 'cart_items';
   info: {
@@ -608,6 +661,109 @@ export interface ApiDepartmentDepartment extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiFeaturedCollectionFeaturedCollection
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'featured_collections';
+  info: {
+    description: 'Colecciones destacadas para la home';
+    displayName: 'Featured Collection';
+    pluralName: 'featured-collections';
+    singularName: 'featured-collection';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    backgroundColor: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'#FFFFFF'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    ctaLink: Schema.Attribute.String;
+    ctaText: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Ver Colecci\u00F3n'>;
+    department: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::department.department'
+    >;
+    description: Schema.Attribute.Text;
+    hoverImage: Schema.Attribute.Media<'images'>;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::featured-collection.featured-collection'
+    > &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
+    publishedAt: Schema.Attribute.DateTime;
+    size: Schema.Attribute.Enumeration<['small', 'medium', 'large', 'full']> &
+      Schema.Attribute.DefaultTo<'medium'>;
+    slug: Schema.Attribute.UID<'title'>;
+    textColor: Schema.Attribute.String & Schema.Attribute.DefaultTo<'#000000'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiHeroBannerHeroBanner extends Struct.CollectionTypeSchema {
+  collectionName: 'hero_banners';
+  info: {
+    description: 'Hero banners din\u00E1micos para la p\u00E1gina principal';
+    displayName: 'Hero Banner';
+    pluralName: 'hero-banners';
+    singularName: 'hero-banner';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    animationType: Schema.Attribute.Enumeration<
+      ['fade', 'slide', 'zoom', 'none']
+    > &
+      Schema.Attribute.DefaultTo<'fade'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    ctaLink: Schema.Attribute.String;
+    ctaText: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Descubrir'>;
+    description: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::hero-banner.hero-banner'
+    > &
+      Schema.Attribute.Private;
+    mobileImage: Schema.Attribute.Media<'images'>;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    overlayOpacity: Schema.Attribute.Decimal &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 1;
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<0.3>;
+    publishedAt: Schema.Attribute.DateTime;
+    subtitle: Schema.Attribute.String;
+    textColor: Schema.Attribute.Enumeration<['light', 'dark']> &
+      Schema.Attribute.DefaultTo<'light'>;
+    textPosition: Schema.Attribute.Enumeration<['left', 'center', 'right']> &
+      Schema.Attribute.DefaultTo<'center'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiInvoiceInvoice extends Struct.CollectionTypeSchema {
   collectionName: 'invoices';
   info: {
@@ -653,6 +809,50 @@ export interface ApiInvoiceInvoice extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiLookbookLookbook extends Struct.CollectionTypeSchema {
+  collectionName: 'lookbooks';
+  info: {
+    description: 'Lookbooks visuales estilo revista para mostrar colecciones';
+    displayName: 'Lookbook';
+    pluralName: 'lookbooks';
+    singularName: 'lookbook';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    coverImage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    images: Schema.Attribute.Media<'images', true> & Schema.Attribute.Required;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    layoutType: Schema.Attribute.Enumeration<
+      ['grid', 'masonry', 'carousel', 'split']
+    > &
+      Schema.Attribute.DefaultTo<'masonry'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::lookbook.lookbook'
+    > &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
+    publishDate: Schema.Attribute.Date;
+    publishedAt: Schema.Attribute.DateTime;
+    season: Schema.Attribute.String;
+    slug: Schema.Attribute.UID<'title'>;
+    subtitle: Schema.Attribute.String;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    year: Schema.Attribute.Integer;
   };
 }
 
@@ -1519,11 +1719,15 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::brand-story.brand-story': ApiBrandStoryBrandStory;
       'api::cart-item.cart-item': ApiCartItemCartItem;
       'api::cart.cart': ApiCartCart;
       'api::customer.customer': ApiCustomerCustomer;
       'api::department.department': ApiDepartmentDepartment;
+      'api::featured-collection.featured-collection': ApiFeaturedCollectionFeaturedCollection;
+      'api::hero-banner.hero-banner': ApiHeroBannerHeroBanner;
       'api::invoice.invoice': ApiInvoiceInvoice;
+      'api::lookbook.lookbook': ApiLookbookLookbook;
       'api::order-item.order-item': ApiOrderItemOrderItem;
       'api::order.order': ApiOrderOrder;
       'api::product.product': ApiProductProduct;
