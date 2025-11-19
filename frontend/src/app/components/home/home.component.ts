@@ -10,6 +10,7 @@ import { FeaturedCollectionService } from '../../services/featured-collection.se
 import { BrandStoryService } from '../../services/brand-story.service';
 import { CartService } from '../../services/cart.service';
 import { ApiService } from '../../services/api.service';
+import { OffersComponent } from '../offers/offers.component';
 import { Product } from '../../models/product.model';
 import { Department } from '../../models/department.model';
 import { HeroBanner } from '../../models/hero-banner.model';
@@ -20,7 +21,7 @@ import { BrandStory } from '../../models/brand-story.model';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, OffersComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })

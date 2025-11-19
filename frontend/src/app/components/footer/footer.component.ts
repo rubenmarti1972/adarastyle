@@ -64,6 +64,32 @@ import { StoreConfigService } from '../../services/store-config.service';
       margin-top: var(--spacing-xxl);
     }
 
+    [data-theme="luxury"] .footer {
+      background: linear-gradient(180deg, rgba(139, 21, 56, 0.95) 0%, rgba(90, 14, 36, 0.98) 100%);
+      border-top: 2px solid var(--color-secondary);
+      color: var(--color-accent);
+    }
+
+    [data-theme="luxury"] .footer-title,
+    [data-theme="luxury"] .footer-subtitle,
+    [data-theme="luxury"] .footer-text,
+    [data-theme="luxury"] .footer-link {
+      color: var(--color-accent);
+    }
+
+    [data-theme="luxury"] .footer-link:hover {
+      color: var(--color-secondary);
+    }
+
+    [data-theme="luxury"] .social-link {
+      color: var(--color-secondary);
+    }
+
+    [data-theme="luxury"] .social-link:hover {
+      background: var(--color-secondary);
+      color: #1a1a1a;
+    }
+
     .footer-container {
       max-width: 1200px;
       margin: 0 auto;
