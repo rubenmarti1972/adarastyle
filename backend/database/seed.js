@@ -29,7 +29,7 @@ const themes = [
       secondary: '#D4AF37', // Dorado
       accent: '#FFFFFF', // Blanco
       background: '#FFFFFF',
-      backgroundAlt: '#FFF8F0',
+      backgroundAlt: '#F5E6CC', // Fondo crema/dorado más oscuro
       text: '#2D1B1E',
       textLight: '#6B4C4F',
       border: '#E8D5C4',
@@ -69,6 +69,13 @@ const themes = [
       duration: '0.4s',
       easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
     },
+    customCSS: `
+      body {
+        background: linear-gradient(135deg, #F5E6CC 0%, #E8D4B3 33%, #D9C299 66%, #C9AD80 100%);
+        background-attachment: fixed;
+        min-height: 100vh;
+      }
+    `,
   },
   {
     name: 'minimalista',
