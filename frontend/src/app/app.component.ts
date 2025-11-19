@@ -46,5 +46,8 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     // Cargar configuración de la tienda y tema activo
     this.storeConfigService.loadConfig().subscribe();
+
+    // CAMBIAR TEMA AQUÍ - Opciones: 'vibrant', 'minimalist', 'luxury', o quita esta línea para usar el default
+    document.documentElement.setAttribute('data-theme', 'luxury'); // <-- Cambia 'luxury' por el tema que quieras
   }
 }

@@ -128,14 +128,20 @@ export class HomeComponent implements OnInit {
   }
 
   getImageUrl(image: any): string {
-    return this.apiService.getImageUrl(image);
+    const url = this.apiService.getImageUrl(image);
+    // Si no hay imagen, devolver placeholder
+    if (!url) {
+      return 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=1200&h=800&fit=crop';
+    }
+    return url;
   }
 
   getProductImage(product: Product): string {
     if (product.images && product.images.length > 0) {
       return this.getImageUrl(product.images[0]);
     }
-    return '';
+    // Placeholder si no hay imagen
+    return 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&h=600&fit=crop';
   }
 
   formatPrice(price: number): string {
