@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ApiService } from './api.service';
 import { Lookbook } from '../models/lookbook.model';
 
@@ -21,17 +22,15 @@ export class LookbookService {
       params.pagination = { limit };
     }
 
-    return this.apiService.get<any>(this.endpoint, params).pipe(
-      map(response => response.data || [])
-    );
+    return this.apiService.get<Lookbook[]>(this.endpoint, params);
   }
 
   getLookbookBySlug(slug: string): Observable<Lookbook> {
-    return this.apiService.get<any>(this.endpoint, {
+    return this.apiService.get<Lookbook[]>(this.endpoint, {
       filters: { slug: { $eq: slug } },
       populate: ['coverImage', 'images', 'products.images']
     }).pipe(
-      map(response => response.data?.[0])
+      map(response => response[0])
     );
   }
 }
