@@ -209,15 +209,13 @@ import { Product } from '../../models/product.model';
     }
 
     [data-theme="luxury"] .offer-card {
-      background: rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(15px);
-      border: 2px solid rgba(212, 175, 55, 0.3);
+      background: linear-gradient(135deg, #FFFFFF 0%, #FFF8F0 100%);
+      border: 2px solid rgba(212, 175, 55, 0.2);
     }
 
     [data-theme="luxury"] .offer-card:hover {
-      background: rgba(255, 255, 255, 0.1);
       border-color: var(--color-secondary);
-      box-shadow: 0 12px 40px rgba(139, 21, 56, 0.3), 0 0 0 1px var(--color-secondary), var(--glow-gold);
+      box-shadow: 0 12px 40px rgba(139, 21, 56, 0.2), 0 0 0 1px var(--color-secondary);
     }
 
     .offer-badge {
