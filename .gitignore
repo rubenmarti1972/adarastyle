@@ -42,6 +42,7 @@ lerna-debug.log*
 exports/
 *.cache
 build/
+backend/database/data.db
 
 # Angular
 .angular/

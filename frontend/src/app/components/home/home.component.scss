@@ -143,6 +143,23 @@
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
     background: #FFFFFF;
   }
+
+  /* Botón impactante para tema Luxury */
+  [data-theme="luxury"] & {
+    background: var(--gradient-secondary);
+    color: #1a1a1a;
+    font-weight: 700;
+    box-shadow: var(--shadow-lg), var(--glow-gold);
+    border: 2px solid var(--color-secondary);
+
+    &:hover {
+      background: var(--gradient-primary);
+      color: #FFFFFF;
+      box-shadow: var(--shadow-xl), var(--glow-wine);
+      border-color: var(--color-primary);
+      transform: translateY(-4px) scale(1.05);
+    }
+  }
 }
 
 // Carousel Controls
@@ -237,6 +254,19 @@
   font-weight: 700;
   margin-bottom: var(--spacing-md);
   color: var(--color-text);
+  position: relative;
+
+  /* Títulos en dorado para tema Luxury */
+  [data-theme="luxury"] & {
+    color: var(--color-primary);
+    text-shadow: 0 2px 10px rgba(139, 21, 56, 0.2);
+
+    /* Efecto de gradiente en el texto */
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 }
 
 .section-subtitle {
@@ -279,26 +309,45 @@
   aspect-ratio: 3/4;
   text-decoration: none;
   display: block;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-md);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-12px);
+    box-shadow: var(--shadow-xl);
 
     .collection-image.primary {
-      transform: scale(1.05);
+      transform: scale(1.08);
       opacity: 0;
     }
 
     .collection-image.hover {
       opacity: 1;
-      transform: scale(1.05);
+      transform: scale(1.08);
     }
 
     .collection-overlay {
-      opacity: 0.6;
+      opacity: 0.7;
     }
+
+    .collection-title {
+      text-shadow: 0 0 20px rgba(212, 175, 55, 0.8);
+      color: var(--color-secondary);
+    }
+  }
+
+  /* Efecto de sombra interna para tema luxury */
+  [data-theme="luxury"] &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: var(--shadow-inset);
+    pointer-events: none;
+    z-index: 1;
+    border-radius: var(--radius-lg);
   }
 
   &.size-small { grid-column: span 1; }
@@ -486,6 +535,22 @@
     transform: translateY(-2px);
     box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
   }
+
+  /* Botón story impactante para tema Luxury */
+  [data-theme="luxury"] & {
+    background: var(--gradient-primary);
+    font-weight: 700;
+    box-shadow: var(--shadow-lg), var(--glow-wine);
+    border: 2px solid var(--color-secondary);
+
+    &:hover {
+      background: var(--gradient-secondary);
+      color: #1a1a1a;
+      border-color: var(--color-secondary);
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: var(--shadow-xl), var(--glow-gold);
+    }
+  }
 }
 
 // =====================================================
@@ -518,11 +583,11 @@
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 
   &.elegant {
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    box-shadow: var(--shadow-md);
 
     &:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-xl);
     }
   }
 
@@ -532,7 +597,19 @@
 
     &:hover {
       border-color: var(--color-primary);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      box-shadow: var(--shadow-lg);
+    }
+  }
+
+  /* Efecto especial para tema Luxury */
+  [data-theme="luxury"] & {
+    box-shadow: var(--shadow-md), var(--shadow-inset);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+
+    &:hover {
+      transform: translateY(-12px);
+      box-shadow: var(--shadow-xl), var(--glow-gold);
+      border-color: var(--color-secondary);
     }
   }
 }
@@ -611,6 +688,23 @@
     background: var(--color-error);
     color: #FFFFFF;
   }
+
+  /* Badges especiales para tema Luxury */
+  [data-theme="luxury"] & {
+    &.badge-new {
+      background: var(--gradient-secondary);
+      color: #1a1a1a;
+      box-shadow: var(--glow-gold);
+      font-weight: 800;
+    }
+
+    &.badge-sale {
+      background: var(--gradient-primary);
+      color: #FFFFFF;
+      box-shadow: var(--glow-wine);
+      font-weight: 800;
+    }
+  }
 }
 
 .product-quick-view {
@@ -630,6 +724,14 @@
   transform: translateY(100%);
   transition: all 0.3s ease;
   z-index: 2;
+
+  /* Quick view para tema Luxury */
+  [data-theme="luxury"] & {
+    background: var(--gradient-primary);
+    font-weight: 700;
+    box-shadow: var(--glow-wine);
+    border-top: 2px solid var(--color-secondary);
+  }
 }
 
 .product-info {
@@ -670,6 +772,17 @@
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--color-primary);
+
+  /* Precio en dorado para tema Luxury */
+  [data-theme="luxury"] & {
+    background: var(--gradient-secondary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+  }
 }
 
 .product-price-old {
@@ -685,6 +798,14 @@
   background: rgba(139, 21, 56, 0.1);
   padding: 2px 8px;
   border-radius: var(--radius-sm);
+
+  /* Descuento vinotinto para tema Luxury */
+  [data-theme="luxury"] & {
+    background: var(--gradient-primary);
+    color: #FFFFFF;
+    font-weight: 800;
+    box-shadow: var(--glow-wine);
+  }
 }
 
 .section-cta {
@@ -908,6 +1029,23 @@
       transform: translateY(-2px);
       box-shadow: 0 4px 15px rgba(139, 21, 56, 0.3);
     }
+
+    /* Botón outline luxury con dorado */
+    [data-theme="luxury"] & {
+      border-width: 2px;
+      border-color: var(--color-secondary);
+      color: var(--color-secondary);
+      font-weight: 700;
+      box-shadow: var(--shadow-sm);
+
+      &:hover {
+        background: var(--gradient-secondary);
+        border-color: var(--color-secondary);
+        color: #1a1a1a;
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: var(--shadow-lg), var(--glow-gold);
+      }
+    }
   }
 }
 
@@ -967,5 +1105,85 @@
 
   .product-price {
     font-size: 1rem;
+  }
+}
+
+// =====================================================
+// ANIMACIONES ADICIONALES PARA TEMA LUXURY
+// =====================================================
+
+/* Animación de pulso dorado para elementos destacados */
+@keyframes pulseGold {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 20px 10px rgba(212, 175, 55, 0);
+  }
+}
+
+/* Animación de brillo */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* Efecto de brillo en hover para tema luxury */
+[data-theme="luxury"] {
+  .badge-new,
+  .badge-sale {
+    animation: pulseGold 2s infinite;
+  }
+
+  .section-title::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(212, 175, 55, 0.3),
+      transparent
+    );
+    background-size: 200% 100%;
+    animation: shimmer 3s infinite;
+  }
+
+  /* Animación de entrada para cards */
+  .collection-card,
+  .product-card {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  /* Retardo progresivo para efecto cascada */
+  .collection-card:nth-child(1),
+  .product-card:nth-child(1) { animation-delay: 0.1s; }
+  .collection-card:nth-child(2),
+  .product-card:nth-child(2) { animation-delay: 0.2s; }
+  .collection-card:nth-child(3),
+  .product-card:nth-child(3) { animation-delay: 0.3s; }
+  .collection-card:nth-child(4),
+  .product-card:nth-child(4) { animation-delay: 0.4s; }
+  .collection-card:nth-child(5),
+  .product-card:nth-child(5) { animation-delay: 0.5s; }
+  .collection-card:nth-child(6),
+  .product-card:nth-child(6) { animation-delay: 0.6s; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
