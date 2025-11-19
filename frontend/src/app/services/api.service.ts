@@ -16,16 +16,60 @@ export class ApiService {
     let httpParams = new HttpParams();
 
     if (params) {
-      Object.keys(params).forEach(key => {
-        if (params[key] !== null && params[key] !== undefined) {
-          httpParams = httpParams.set(key, params[key]);
-        }
-      });
+      httpParams = this.buildStrapiParams(params);
     }
 
     return this.http.get<any>(`${this.apiUrl}/${endpoint}`, { params: httpParams }).pipe(
       map(response => this.extractData(response))
     );
+  }
+
+  private buildStrapiParams(params: any): HttpParams {
+    let httpParams = new HttpParams();
+
+    Object.keys(params).forEach(key => {
+      const value = params[key];
+
+      if (value === null || value === undefined) {
+        return;
+      }
+
+      // Handle arrays (like populate, sort)
+      if (Array.isArray(value)) {
+        value.forEach(item => {
+          httpParams = httpParams.append(key, item);
+        });
+      }
+      // Handle objects (like filters, pagination)
+      else if (typeof value === 'object') {
+        httpParams = this.appendNestedParams(httpParams, key, value);
+      }
+      // Handle primitive values
+      else {
+        httpParams = httpParams.set(key, value.toString());
+      }
+    });
+
+    return httpParams;
+  }
+
+  private appendNestedParams(params: HttpParams, prefix: string, obj: any): HttpParams {
+    Object.keys(obj).forEach(key => {
+      const value = obj[key];
+      const paramKey = `${prefix}[${key}]`;
+
+      if (value === null || value === undefined) {
+        return;
+      }
+
+      if (typeof value === 'object' && !Array.isArray(value)) {
+        params = this.appendNestedParams(params, paramKey, value);
+      } else {
+        params = params.set(paramKey, value.toString());
+      }
+    });
+
+    return params;
   }
 
   post<T>(endpoint: string, data: any): Observable<T> {
