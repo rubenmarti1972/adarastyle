@@ -34,11 +34,24 @@ export class ApiService {
         return;
       }
 
-      // Handle arrays (like populate, sort)
+      // Handle arrays - Strapi 5 requires indexed notation for populate
       if (Array.isArray(value)) {
-        value.forEach(item => {
-          httpParams = httpParams.append(key, item);
-        });
+        if (key === 'populate') {
+          // Para populate, usar notación con índices: populate[0]=image&populate[1]=mobileImage
+          value.forEach((item, index) => {
+            httpParams = httpParams.set(`${key}[${index}]`, item);
+          });
+        } else if (key === 'sort') {
+          // Para sort, solo agregar múltiples veces
+          value.forEach(item => {
+            httpParams = httpParams.append(key, item);
+          });
+        } else {
+          // Otros arrays
+          value.forEach(item => {
+            httpParams = httpParams.append(key, item);
+          });
+        }
       }
       // Handle objects (like filters, pagination)
       else if (typeof value === 'object') {
