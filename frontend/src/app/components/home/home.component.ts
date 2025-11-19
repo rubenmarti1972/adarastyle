@@ -8,6 +8,7 @@ import { HeroBannerService } from '../../services/hero-banner.service';
 import { LookbookService } from '../../services/lookbook.service';
 import { FeaturedCollectionService } from '../../services/featured-collection.service';
 import { BrandStoryService } from '../../services/brand-story.service';
+import { CartService } from '../../services/cart.service';
 import { ApiService } from '../../services/api.service';
 import { Product } from '../../models/product.model';
 import { Department } from '../../models/department.model';
@@ -44,6 +45,10 @@ export class HomeComponent implements OnInit {
   // Brand Stories
   brandStories = signal<BrandStory[]>([]);
 
+  // Estado para mostrar notificaciones
+  addingToCart = signal<number | null>(null);
+  addedToCart = signal<number | null>(null);
+
   constructor(
     private productService: ProductService,
     private departmentService: DepartmentService,
@@ -52,6 +57,7 @@ export class HomeComponent implements OnInit {
     private lookbookService: LookbookService,
     private featuredCollectionService: FeaturedCollectionService,
     private brandStoryService: BrandStoryService,
+    private cartService: CartService,
     private apiService: ApiService
   ) {}
 
@@ -96,6 +102,40 @@ export class HomeComponent implements OnInit {
     this.departmentService.getDepartments().subscribe(departments => {
       this.departments = departments;
     });
+  }
+
+  addToCart(product: Product, event?: Event): void {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    this.addingToCart.set(product.id);
+
+    this.cartService.addItem(product.id, 1).subscribe({
+      next: () => {
+        this.addingToCart.set(null);
+        this.addedToCart.set(product.id);
+
+        // Ocultar notificación después de 2 segundos
+        setTimeout(() => {
+          this.addedToCart.set(null);
+        }, 2000);
+      },
+      error: (error) => {
+        console.error('Error adding to cart:', error);
+        this.addingToCart.set(null);
+        alert('Error al agregar al carrito. Por favor intenta de nuevo.');
+      }
+    });
+  }
+
+  isAddingToCart(productId: number): boolean {
+    return this.addingToCart() === productId;
+  }
+
+  wasAddedToCart(productId: number): boolean {
+    return this.addedToCart() === productId;
   }
 
   startBannerRotation(): void {

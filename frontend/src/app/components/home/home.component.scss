@@ -1187,3 +1187,97 @@
     transform: translateY(0);
   }
 }
+
+// =====================================================
+// BOTÓN AGREGAR AL CARRITO
+// =====================================================
+
+.product-actions {
+  padding: 0 var(--spacing-lg) var(--spacing-lg);
+  background: var(--color-background);
+}
+
+.btn-add-to-cart {
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+  color: #FFFFFF;
+  font-family: var(--font-secondary);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .btn-icon {
+    font-size: 1.2rem;
+  }
+
+  .btn-text {
+    letter-spacing: 0.02em;
+  }
+
+  /* Estado agregando */
+  &.adding {
+    background: var(--color-text-light);
+    cursor: wait;
+  }
+
+  /* Estado agregado */
+  &.added {
+    background: var(--color-success);
+    animation: pulse 0.5s ease;
+  }
+
+  /* Tema Luxury */
+  [data-theme="luxury"] & {
+    background: var(--gradient-primary);
+    font-weight: 700;
+    box-shadow: var(--shadow-md);
+
+    &:hover:not(:disabled) {
+      background: var(--gradient-secondary);
+      color: #1a1a1a;
+      box-shadow: var(--shadow-xl), var(--glow-gold);
+      transform: translateY(-3px);
+    }
+
+    &.adding {
+      background: linear-gradient(135deg, #666 0%, #999 100%);
+    }
+
+    &.added {
+      background: var(--gradient-secondary);
+      color: #1a1a1a;
+      box-shadow: var(--glow-gold);
+    }
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}

@@ -137,6 +137,23 @@ import { ApiService } from '../../services/api.service';
       font-weight: 600;
       min-width: 18px;
       text-align: center;
+      animation: pulse-badge 2s infinite;
+    }
+
+    [data-theme="luxury"] .cart-badge {
+      background: var(--gradient-secondary);
+      color: #1a1a1a;
+      font-weight: 800;
+      box-shadow: var(--glow-gold);
+    }
+
+    @keyframes pulse-badge {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
     }
 
     .nav {
