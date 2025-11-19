@@ -811,14 +811,24 @@ async function seed() {
       console.log(`✓ Created brand story: ${storyData.title}`);
     }
 
-    // 9. Configurar permisos públicos para las nuevas APIs
+    // 9. Configurar permisos públicos para TODAS las APIs
     console.log('\n🔓 Setting up public permissions...');
     const publicRole = await strapi.db.query('plugin::users-permissions.role').findOne({
       where: { type: 'public' },
     });
 
     if (publicRole) {
-      const contentTypes = ['hero-banner', 'featured-collection', 'lookbook', 'brand-story'];
+      // Incluir TODOS los content types
+      const contentTypes = [
+        'hero-banner',
+        'featured-collection',
+        'lookbook',
+        'brand-story',
+        'product',
+        'department',
+        'store-config',
+        'theme'
+      ];
 
       for (const contentType of contentTypes) {
         // Grant find and findOne permissions
