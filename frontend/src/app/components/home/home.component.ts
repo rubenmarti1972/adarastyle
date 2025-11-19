@@ -25,7 +25,8 @@ import { BrandStory } from '../../models/brand-story.model';
 })
 export class HomeComponent implements OnInit {
   config = this.storeConfigService.config;
-  Math = Math
+  Math = Math; // Expose Math to template
+
   // Hero Banners
   heroBanners = signal<HeroBanner[]>([]);
   currentBannerIndex = signal(0);

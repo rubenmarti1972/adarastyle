@@ -811,6 +811,35 @@ async function seed() {
       console.log(`✓ Created brand story: ${storyData.title}`);
     }
 
+    // 9. Configurar permisos públicos para las nuevas APIs
+    console.log('\n🔓 Setting up public permissions...');
+    const publicRole = await strapi.db.query('plugin::users-permissions.role').findOne({
+      where: { type: 'public' },
+    });
+
+    if (publicRole) {
+      const contentTypes = ['hero-banner', 'featured-collection', 'lookbook', 'brand-story'];
+
+      for (const contentType of contentTypes) {
+        // Grant find and findOne permissions
+        await strapi.db.query('plugin::users-permissions.permission').create({
+          data: {
+            action: `api::${contentType}.${contentType}.find`,
+            role: publicRole.id,
+          },
+        });
+
+        await strapi.db.query('plugin::users-permissions.permission').create({
+          data: {
+            action: `api::${contentType}.${contentType}.findOne`,
+            role: publicRole.id,
+          },
+        });
+
+        console.log(`✓ Public access enabled for ${contentType}`);
+      }
+    }
+
     console.log('\n✅ Seed completed successfully!');
     console.log('\n📊 Summary:');
     console.log(`   - ${themes.length} themes created`);
