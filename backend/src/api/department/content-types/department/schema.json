@@ -57,6 +57,12 @@
       "target": "api::product.product",
       "mappedBy": "department"
     },
+    "categories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::category.category",
+      "mappedBy": "department"
+    },
     "metaTitle": {
       "type": "string"
     },

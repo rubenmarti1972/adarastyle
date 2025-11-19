@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { WhatsappButtonComponent } from './components/whatsapp-button/whatsapp-button.component';
 import { StoreConfigService } from './services/store-config.service';
 import { ThemeService } from './services/theme.service';
 
@@ -13,7 +14,8 @@ import { ThemeService } from './services/theme.service';
     CommonModule,
     RouterOutlet,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    WhatsappButtonComponent
   ],
   template: `
     <div class="app-container">
@@ -22,6 +24,7 @@ import { ThemeService } from './services/theme.service';
         <router-outlet></router-outlet>
       </main>
       <app-footer></app-footer>
+      <app-whatsapp-button></app-whatsapp-button>
     </div>
   `,
   styles: [`
