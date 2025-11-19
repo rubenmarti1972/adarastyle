@@ -101,17 +101,17 @@
   --font-secondary: 'Inter', sans-serif;
 }
 
-/* Luxury - Vinotinto & Oro (Premium & Impactante) */
+/* Luxury - Vinotinto & Oro (Premium & Impactante) - FONDO OSCURO */
 [data-theme="luxury"] {
   --color-primary: #8B1538;
   --color-secondary: #D4AF37;
   --color-accent: #FFFFFF;
-  --color-background: #FFFFFF;
-  --color-background-alt: #FFF8F0;
-  --color-text: #1a1a1a;
-  --color-text-light: #666666;
-  --color-border: #E5D5C0;
-  --color-success: #2D5F3F;
+  --color-background: #1a1a1a;
+  --color-background-alt: #2a2a2a;
+  --color-text: #FFFFFF;
+  --color-text-light: #B8B8B8;
+  --color-border: #3a3a3a;
+  --color-success: #4CAF50;
   --color-warning: #D4AF37;
   --color-error: #8B1538;
   --color-info: #2C5282;
@@ -119,22 +119,22 @@
   --font-secondary: 'Inter', sans-serif;
   --font-heading-weight: 700;
 
-  /* Gradientes Impactantes */
+  /* Gradientes Impactantes - OSCUROS */
   --gradient-primary: linear-gradient(135deg, #8B1538 0%, #A91D48 100%);
   --gradient-secondary: linear-gradient(135deg, #D4AF37 0%, #E8C75A 100%);
   --gradient-hero: linear-gradient(135deg, rgba(139, 21, 56, 0.95) 0%, rgba(212, 175, 55, 0.85) 100%);
   --gradient-background: linear-gradient(180deg, #F5E6CC 0%, #E8D4B3 30%, #D9C299 70%, #C9AD80 100%);
 
   /* Sombras Dramáticas */
-  --shadow-sm: 0 2px 8px rgba(139, 21, 56, 0.1);
-  --shadow-md: 0 4px 16px rgba(139, 21, 56, 0.15);
-  --shadow-lg: 0 8px 24px rgba(139, 21, 56, 0.2);
-  --shadow-xl: 0 12px 32px rgba(139, 21, 56, 0.25);
-  --shadow-inset: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.7);
+  --shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.8);
+  --shadow-inset: inset 0 2px 8px rgba(0, 0, 0, 0.3);
 
   /* Efectos de Brillo */
-  --glow-gold: 0 0 20px rgba(212, 175, 55, 0.5);
-  --glow-wine: 0 0 20px rgba(139, 21, 56, 0.5);
+  --glow-gold: 0 0 20px rgba(212, 175, 55, 0.6);
+  --glow-wine: 0 0 20px rgba(139, 21, 56, 0.6);
 }
 
 /* Global Styles */
