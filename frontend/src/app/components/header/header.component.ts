@@ -130,10 +130,21 @@ import { ApiService } from '../../services/api.service';
       align-items: center;
     }
 
+    [data-theme="luxury"] .search-btn,
+    [data-theme="luxury"] .cart-btn {
+      color: var(--color-accent);
+    }
+
     .search-btn:hover,
     .cart-btn:hover {
       background: var(--color-background-alt);
       color: var(--color-primary);
+    }
+
+    [data-theme="luxury"] .search-btn:hover,
+    [data-theme="luxury"] .cart-btn:hover {
+      background: rgba(212, 175, 55, 0.2);
+      color: var(--color-secondary);
     }
 
     .cart-badge {
