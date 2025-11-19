@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { BrandStory } from '../models/brand-story.model';
 
@@ -24,18 +24,14 @@ export class BrandStoryService {
       params.pagination = { limit };
     }
 
-    return this.apiService.get<any>(this.endpoint, params).pipe(
-      map(response => response.data || [])
-    );
+    return this.apiService.get<BrandStory[]>(this.endpoint, params);
   }
 
   getAllStories(): Observable<BrandStory[]> {
-    return this.apiService.get<any>(this.endpoint, {
+    return this.apiService.get<BrandStory[]>(this.endpoint, {
       filters: { isActive: { $eq: true } },
       sort: ['order:asc'],
       populate: ['image']
-    }).pipe(
-      map(response => response.data || [])
-    );
+    });
   }
 }

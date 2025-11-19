@@ -25,7 +25,7 @@ module.exports = {
       },
     },
     {
-      method: 'DELETE',
+      method: 'POST',
       path: '/cart/remove',
       handler: 'cart.removeItem',
       config: {
