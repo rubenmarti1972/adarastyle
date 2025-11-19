@@ -1,3 +1,13 @@
+/**
+ * Script de seed para poblar la base de datos con datos de ejemplo
+ * Incluye: themes, departments, products, store config, hero banners, collections, lookbooks, brand stories
+ *
+ * Características:
+ * - Configuración automática de permisos públicos para todos los content types
+ * - Contenido CMS completo para diseño impactante e-commerce
+ * - Inspirado en: Liderlamp, Bershka, Likely, Mr. Wonderful
+ */
+
 const { faker } = require('@faker-js/faker');
 const {
   heroBanners,
